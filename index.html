@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CS2KZ Profile</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0d0d1a;
+            font-family: 'Inter', sans-serif;
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* ===== HEADER ===== */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            border: 1px solid #2a2a42;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #4a4a6a;
+            flex-shrink: 0;
+            background: #2a2a42;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            overflow: hidden;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .profile-info .name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .profile-info .steamid {
+            font-size: 14px;
+            color: #8888aa;
+            font-family: monospace;
+        }
+
+        .profile-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-left: auto;
+        }
+
+        .profile-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: #2a2a42;
+            color: #c0c0e0;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.2s, color 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .profile-links a:hover {
+            background: #3a3a5a;
+            color: #fff;
+            border-color: #4a4a6a;
+        }
+
+        .profile-links a.steam-link:hover {
+            background: #1a3a5a;
+            border-color: #4a8aba;
+            color: #8ac4ff;
+        }
+
+        .profile-links a.kz-link:hover {
+            background: #2a4a3a;
+            border-color: #4aba8a;
+            color: #8affc4;
+        }
+
+        /* ===== STATS ROW ===== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: #1a1a2e;
+            border-radius: 14px;
+            padding: 16px 20px;
+            border: 1px solid #2a2a42;
+            text-align: center;
+        }
+
+        .stat-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            color: #8888aa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+
+        /* ===== TIER PROGRESS ===== */
+        .tier-section {
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            border: 1px solid #2a2a42;
+        }
+
+        .tier-section h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #aaaacc;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 12px;
+        }
+
+        .tier-item {
+            background: #12121f;
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid #555;
+            transition: background 0.2s;
+        }
+
+        .tier-item .tier-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .tier-item .tier-label {
+            font-size: 13px;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .tier-item .tier-count {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .tier-item .tier-count.zero {
+            color: #555;
+        }
+
+        /* ===== RECORDS TABLE ===== */
+        .records-section {
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 24px 32px;
+            border: 1px solid #2a2a42;
+            overflow-x: auto;
+        }
+
+        .records-section h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #aaaacc;
+            margin-bottom: 16px;
+            letter-spacing: 0.3px;
+        }
+
+        .records-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            min-width: 600px;
+        }
+
+        .records-table th {
+            text-align: left;
+            padding: 10px 12px;
+            color: #8888aa;
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #2a2a42;
+        }
+
+        .records-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #1a1a2a;
+            vertical-align: middle;
+        }
+
+        .records-table tr:hover td {
+            background: #22223a;
+        }
+
+        .records-table .map-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .records-table .map-thumb {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            object-fit: cover;
+            background: #2a2a42;
+            flex-shrink: 0;
+        }
+
+        .records-table .map-name {
+            font-weight: 500;
+        }
+
+        .records-table .map-course {
+            font-size: 12px;
+            color: #8888aa;
+        }
+
+        .records-table .mode-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            background: #2a2a4a;
+            color: #aac;
+        }
+
+        .records-table .mode-badge.ckz {
+            background: #1a3a4a;
+            color: #6ac8ff;
+        }
+
+        .records-table .mode-badge.vnl {
+            background: #2a4a3a;
+            color: #6affa8;
+        }
+
+        .records-table .time-cell {
+            font-weight: 600;
+            color: #aaffaa;
+            font-family: monospace;
+            font-size: 15px;
+        }
+
+        .records-table .teleports-cell {
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .records-table .date-cell {
+            color: #777;
+            font-size: 12px;
+        }
+
+        /* ===== LOADING / ERROR / NOT FOUND ===== */
+        .loading-state,
+        .error-state,
+        .not-found {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .loading-state .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #2a2a42;
+            border-top-color: #6ac8ff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-state p,
+        .error-state p,
+        .not-found p {
+            color: #8888aa;
+            font-size: 16px;
+        }
+
+        .error-state p {
+            color: #ff6b6b;
+        }
+
+        .not-found .big-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 700px) {
+            body { padding: 16px 12px; }
+            .profile-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+            .profile-links {
+                margin-left: 0;
+                justify-content: center;
+            }
+            .profile-info .name { font-size: 20px; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); }
+            .tier-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+            .records-section { padding: 16px; }
+            .records-table { font-size: 13px; min-width: 480px; }
+            .records-table .map-thumb { width: 32px; height: 32px; }
+        }
+
+        @media (max-width: 480px) {
+            .stats-row { grid-template-columns: 1fr; }
+            .tier-grid { grid-template-columns: 1fr; }
+            .profile-header { padding: 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="app">
+    <!-- Контент будет вставлен сюда через JavaScript -->
+    <div id="content"></div>
+</div>
+
+<script>
+    (function() {
+        'use strict';
+
+        // ===== Конфигурация =====
+        const REPO_OWNER = 'yesseir';
+        const REPO_NAME = 'cs2kz-profile';
+        const BRANCH = 'main';
+
+        const RECORDS_URL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/data/records.json`;
+        const PLAYERS_URL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/data/players.json`;
+        const MAPS_URL = 'https://raw.githubusercontent.com/YesSeir/cs2kz-maps/main/maps.json';
+
+        // ===== Состояние =====
+        let allRecords = [];
+        let allPlayers = [];
+        let allMaps = [];
+        let currentSteamId = null;
+
+        const contentEl = document.getElementById('content');
+
+        // ===== Вспомогательные функции =====
+        function getSteamIdFromUrl() {
+            const path = window.location.pathname;
+            const parts = path.split('/').filter(p => p.length > 0);
+            // Если последний сегмент — это SteamID64 (цифры)
+            const last = parts[parts.length - 1];
+            if (last && /^\d{17}$/.test(last)) {
+                return last;
+            }
+            return null;
+        }
+
+        function formatTime(seconds) {
+            if (!seconds || seconds <= 0) return '—';
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            return `${String(mins).padStart(2, '0')}:${secs.toFixed(3).padStart(6, '0')}`;
+        }
+
+        function getModeLabel(modeId) {
+            return modeId === 2 ? 'CKZ' : 'VNL';
+        }
+
+        function getModeClass(modeId) {
+            return modeId === 2 ? 'ckz' : 'vnl';
+        }
+
+        function getSteamProfileUrl(steamId) {
+            return `https://steamcommunity.com/profiles/${steamId}`;
+        }
+
+        function getCs2kzProfileUrl(steamId) {
+            return `https://cs2kz.org/player/${steamId}`;
+        }
+
+        function getSteamAvatarUrl(steamId) {
+            // Пытаемся получить аватар через стандартный URL Steam
+            // Используем сервис, который генерирует аватар по SteamID64
+            // https://avatars.steamstatic.com/SteamID64.jpg?size=medium
+            return `https://avatars.steamstatic.com/${steamId}.jpg?size=medium`;
+        }
+
+        function getMapImage(mapName) {
+            // Ищем карту в allMaps
+            const map = allMaps.find(m => m.mapname && m.mapname.toLowerCase() === mapName.toLowerCase());
+            return map?.image || `https://raw.githubusercontent.com/YesSeir/cs2kz-maps/main/maps/${mapName}.jpg`;
+        }
+
+        function getMapTier(mapName, mode, type) {
+            const map = allMaps.find(m => m.mapname && m.mapname.toLowerCase() === mapName.toLowerCase());
+            if (!map) return 0;
+            if (mode === 2) { // CKZ
+                return type === 'nub' ? (map.ckznubtier || 0) : (map.ckzprotier || 0);
+            } else { // VNL
+                return type === 'nub' ? (map.vnlnubtier || 0) : (map.vnlprotier || 0);
+            }
+        }
+
+        // ===== Загрузка данных =====
+        async function fetchJson(url) {
+            const resp = await fetch(url);
+            if (!resp.ok) throw new Error(`HTTP ${resp.status} — ${resp.statusText}`);
+            return resp.json();
+        }
+
+        async function loadAllData() {
+            try {
+                const [records, players, maps] = await Promise.all([
+                    fetchJson(RECORDS_URL),
+                    fetchJson(PLAYERS_URL),
+                    fetchJson(MAPS_URL)
+                ]);
+                allRecords = records || [];
+                allPlayers = players || [];
+                allMaps = maps || [];
+                return true;
+            } catch (err) {
+                console.error('Failed to load data:', err);
+                return false;
+            }
+        }
+
+        // ===== Рендеринг =====
+        function renderLoading() {
+            contentEl.innerHTML = `
+                <div class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Загрузка данных профиля...</p>
+                </div>
+            `;
+        }
+
+        function renderError(message) {
+            contentEl.innerHTML = `
+                <div class="error-state">
+                    <p>❌ ${message}</p>
+                </div>
+            `;
+        }
+
+        function renderNotFound() {
+            contentEl.innerHTML = `
+                <div class="not-found">
+                    <div class="big-icon">👤</div>
+                    <p>Игрок с таким SteamID не найден</p>
+                    <p style="font-size:14px;margin-top:8px;color:#555;">
+                        Проверьте, что SteamID корректен, и что данные загружены.
+                    </p>
+                </div>
+            `;
+        }
+
+        function renderProfile(steamId) {
+            // Находим игрока в players.json (просто проверяем наличие)
+            const playerExists = allPlayers.includes(steamId);
+
+            // Находим все рекорды этого игрока
+            const playerRecords = allRecords.filter(r => r.steamid === steamId);
+
+            // Если игрока нет в players.json и нет рекордов — считаем не найденным
+            if (!playerExists && playerRecords.length === 0) {
+                renderNotFound();
+                return;
+            }
+
+            // Имя игрока — берём из первого рекорда или ставим "Unknown"
+            const playerName = playerRecords.length > 0 ? playerRecords[0].player_name : 'Unknown Player';
+
+            // Статистика
+            const totalRecords = playerRecords.length;
+            const uniqueMaps = new Set(playerRecords.map(r => r.mapname)).size;
+            const bestTime = playerRecords.reduce((min, r) => r.time < min ? r.time : min, Infinity);
+            const bestTimeFormatted = bestTime !== Infinity ? formatTime(bestTime) : '—';
+
+            // Группировка рекордов по тирам (для прогресса)
+            // Для каждого рекорда определяем тир (CKZ Nub по умолчанию)
+            const tierCounts = {};
+            playerRecords.forEach(r => {
+                const tier = getMapTier(r.mapname, r.mode === 'CKZ' ? 2 : 1, 'nub');
+                if (tier > 0) {
+                    tierCounts[tier] = (tierCounts[tier] || 0) + 1;
+                }
+            });
+
+            // Все возможные тиры от 1 до 10
+            const tierLabels = {
+                1: '1 — Very Easy',
+                2: '2 — Easy',
+                3: '3 — Medium',
+                4: '4 — Advanced',
+                5: '5 — Hard',
+                6: '6 — Very Hard',
+                7: '7 — Extreme',
+                8: '8 — Death',
+                9: '9 — Unfeasible',
+                10: '10 — Impossible'
+            };
+            const tierColors = {
+                1: '#6bc96f',
+                2: '#33bd3a',
+                3: '#d8e302',
+                4: '#FFC107',
+                5: '#e37910',
+                6: '#e34202',
+                7: '#e31c02',
+                8: '#bb02db',
+                9: '#dbdbdb',
+                10: '#d1d1d1'
+            };
+
+            // Сортируем рекорды по времени (лучшие сверху)
+            const sortedRecords = [...playerRecords].sort((a, b) => a.time - b.time);
+
+            // ===== Сборка HTML =====
+            let html = '';
+
+            // --- Header ---
+            html += `
+                <div class="profile-header">
+                    <div class="profile-avatar">
+                        <img src="${getSteamAvatarUrl(steamId)}" alt="Avatar" onerror="this.parentElement.textContent='🎮'" />
+                    </div>
+                    <div class="profile-info">
+                        <div class="name">${escapeHtml(playerName)}</div>
+                        <div class="steamid">${steamId}</div>
+                    </div>
+                    <div class="profile-links">
+                        <a href="${getSteamProfileUrl(steamId)}" target="_blank" class="steam-link">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                            Steam
+                        </a>
+                        <a href="${getCs2kzProfileUrl(steamId)}" target="_blank" class="kz-link">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14.5c-3.59 0-6.5-2.91-6.5-6.5S4.41 1.5 8 1.5s6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5z"/><path d="M7 4h2v5H7zm0 6h2v2H7z"/></svg>
+                            CS2KZ.org
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            // --- Stats ---
+            html += `
+                <div class="stats-row">
+                    <div class="stat-card">
+                        <div class="value">${totalRecords}</div>
+                        <div class="label">Всего рекордов</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">${uniqueMaps}</div>
+                        <div class="label">Уникальных карт</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="value">${bestTimeFormatted}</div>
+                        <div class="label">Лучшее время</div>
+                    </div>
+                </div>
+            `;
+
+            // --- Tier Progress ---
+            html += `
+                <div class="tier-section">
+                    <h2>🏆 Прогресс по тирам</h2>
+                    <div class="tier-grid">
+            `;
+            for (let tier = 1; tier <= 10; tier++) {
+                const count = tierCounts[tier] || 0;
+                const color = tierColors[tier] || '#555';
+                const label = tierLabels[tier] || `Тир ${tier}`;
+                html += `
+                    <div class="tier-item" style="border-left-color:${color};">
+                        <div class="tier-dot" style="background:${color};"></div>
+                        <div class="tier-label">${label}</div>
+                        <div class="tier-count ${count === 0 ? 'zero' : ''}">${count}</div>
+                    </div>
+                `;
+            }
+            html += `
+                    </div>
+                </div>
+            `;
+
+            // --- Records Table ---
+            html += `
+                <div class="records-section">
+                    <h2>📋 Все рекорды</h2>
+                    <div style="overflow-x:auto;">
+                        <table class="records-table">
+                            <thead>
+                                <tr>
+                                    <th>Карта</th>
+                                    <th>Режим</th>
+                                    <th>Время</th>
+                                    <th>Телепорты</th>
+                                    <th>Дата</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            `;
+
+            if (sortedRecords.length === 0) {
+                html += `
+                    <tr>
+                        <td colspan="5" style="text-align:center;padding:30px;color:#666;">
+                            У этого игрока пока нет рекордов
+                        </td>
+                    </tr>
+                `;
+            } else {
+                sortedRecords.forEach(r => {
+                    const mapImage = getMapImage(r.mapname);
+                    const modeLabel = r.mode || 'CKZ';
+                    const modeClass = modeLabel.toLowerCase();
+                    const dateStr = r.created_formatted || r.created_raw || '—';
+                    html += `
+                        <tr>
+                            <td>
+                                <div class="map-cell">
+                                    <img class="map-thumb" src="${mapImage}" alt="${r.mapname}" onerror="this.style.display='none'" />
+                                    <div>
+                                        <div class="map-name">${escapeHtml(r.mapname)}</div>
+                                        <div class="map-course">${escapeHtml(r.course || 'Main')}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="mode-badge ${modeClass}">${modeLabel}</span></td>
+                            <td class="time-cell">${r.run_time || formatTime(r.time)}</td>
+                            <td class="teleports-cell">${r.teleports ?? 0}</td>
+                            <td class="date-cell">${dateStr}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            html += `
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            contentEl.innerHTML = html;
+        }
+
+        // Простейший экранирование HTML
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ===== Главная функция =====
+        async function init() {
+            const steamId = getSteamIdFromUrl();
+            if (!steamId) {
+                // Если нет SteamID в URL — показываем сообщение
+                contentEl.innerHTML = `
+                    <div class="not-found" style="min-height:200px;">
+                        <div class="big-icon">🔍</div>
+                        <p>Укажите SteamID в URL</p>
+                        <p style="font-size:14px;margin-top:8px;color:#555;">
+                            Пример: <code style="background:#1a1a2e;padding:4px 10px;border-radius:6px;">/76561199389731907</code>
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            currentSteamId = steamId;
+            renderLoading();
+
+            const ok = await loadAllData();
+            if (!ok) {
+                renderError('Не удалось загрузить данные. Проверьте подключение к интернету.');
+                return;
+            }
+
+            renderProfile(steamId);
+        }
+
+        // ===== Запуск =====
+        init();
+    })();
+</script>
+
+</body>
+</html>
