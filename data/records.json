@@ -5774,18 +5774,6 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
-    "mapname": "kz_kreedzune_v1",
-    "course": "kz_kreedzune_v1",
-    "courseid": 1,
-    "mode": "CKZ",
-    "teleports": 18,
-    "runtime": "1:22.796",
-    "time": 82.796875,
-    "created": "10:20:27 02.06.2026"
-  },
-  {
-    "playername": "Memorial",
-    "steamid": "76561199389731907",
     "mapname": "kz_angina",
     "course": "b2",
     "courseid": 3,
