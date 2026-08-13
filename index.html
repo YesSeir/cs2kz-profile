@@ -392,7 +392,6 @@
 <body>
 
 <div class="container" id="app">
-    <!-- Контент будет вставлен сюда через JavaScript -->
     <div id="content"></div>
 </div>
 
@@ -421,12 +420,30 @@
         function getSteamIdFromUrl() {
             const path = window.location.pathname;
             const parts = path.split('/').filter(p => p.length > 0);
-            // Если последний сегмент — это SteamID64 (цифры)
             const last = parts[parts.length - 1];
             if (last && /^\d{17}$/.test(last)) {
                 return last;
             }
             return null;
+        }
+
+        // Находит SteamID с наибольшим количеством записей в allRecords
+        function findMostFrequentSteamId() {
+            if (!allRecords || allRecords.length === 0) return null;
+            const countMap = {};
+            allRecords.forEach(r => {
+                const id = r.steamid;
+                if (id) countMap[id] = (countMap[id] || 0) + 1;
+            });
+            let maxCount = 0;
+            let mostFrequentId = null;
+            for (const [id, count] of Object.entries(countMap)) {
+                if (count > maxCount) {
+                    maxCount = count;
+                    mostFrequentId = id;
+                }
+            }
+            return mostFrequentId;
         }
 
         function formatTime(seconds) {
@@ -453,14 +470,10 @@
         }
 
         function getSteamAvatarUrl(steamId) {
-            // Пытаемся получить аватар через стандартный URL Steam
-            // Используем сервис, который генерирует аватар по SteamID64
-            // https://avatars.steamstatic.com/SteamID64.jpg?size=medium
             return `https://avatars.steamstatic.com/${steamId}.jpg?size=medium`;
         }
 
         function getMapImage(mapName) {
-            // Ищем карту в allMaps
             const map = allMaps.find(m => m.mapname && m.mapname.toLowerCase() === mapName.toLowerCase());
             return map?.image || `https://raw.githubusercontent.com/YesSeir/cs2kz-maps/main/maps/${mapName}.jpg`;
         }
@@ -529,6 +542,18 @@
             `;
         }
 
+        function renderNoData() {
+            contentEl.innerHTML = `
+                <div class="not-found">
+                    <div class="big-icon">📭</div>
+                    <p>Нет данных о рекордах</p>
+                    <p style="font-size:14px;margin-top:8px;color:#555;">
+                        Файл records.json пуст или отсутствует.
+                    </p>
+                </div>
+            `;
+        }
+
         function renderProfile(steamId) {
             // Находим игрока в players.json (просто проверяем наличие)
             const playerExists = allPlayers.includes(steamId);
@@ -552,7 +577,6 @@
             const bestTimeFormatted = bestTime !== Infinity ? formatTime(bestTime) : '—';
 
             // Группировка рекордов по тирам (для прогресса)
-            // Для каждого рекорда определяем тир (CKZ Nub по умолчанию)
             const tierCounts = {};
             playerRecords.forEach(r => {
                 const tier = getMapTier(r.mapname, r.mode === 'CKZ' ? 2 : 1, 'nub');
@@ -561,7 +585,6 @@
                 }
             });
 
-            // Все возможные тиры от 1 до 10
             const tierLabels = {
                 1: '1 — Very Easy',
                 2: '2 — Easy',
@@ -719,7 +742,6 @@
             contentEl.innerHTML = html;
         }
 
-        // Простейший экранирование HTML
         function escapeHtml(text) {
             if (!text) return '';
             const div = document.createElement('div');
@@ -729,31 +751,37 @@
 
         // ===== Главная функция =====
         async function init() {
-            const steamId = getSteamIdFromUrl();
-            if (!steamId) {
-                // Если нет SteamID в URL — показываем сообщение
-                contentEl.innerHTML = `
-                    <div class="not-found" style="min-height:200px;">
-                        <div class="big-icon">🔍</div>
-                        <p>Укажите SteamID в URL</p>
-                        <p style="font-size:14px;margin-top:8px;color:#555;">
-                            Пример: <code style="background:#1a1a2e;padding:4px 10px;border-radius:6px;">/76561199389731907</code>
-                        </p>
-                    </div>
-                `;
-                return;
-            }
-
-            currentSteamId = steamId;
+            // Сначала показываем загрузку
             renderLoading();
 
+            // Загружаем данные
             const ok = await loadAllData();
             if (!ok) {
                 renderError('Не удалось загрузить данные. Проверьте подключение к интернету.');
                 return;
             }
 
-            renderProfile(steamId);
+            // Если нет рекордов – сообщаем
+            if (allRecords.length === 0) {
+                renderNoData();
+                return;
+            }
+
+            // Определяем, какой SteamID показывать
+            let targetSteamId = getSteamIdFromUrl();
+
+            // Если в URL нет ID или он невалидный – берём самого частого игрока
+            if (!targetSteamId) {
+                targetSteamId = findMostFrequentSteamId();
+                if (!targetSteamId) {
+                    // Если не найден (маловероятно, т.к. записи есть) – показываем ошибку
+                    renderError('Не удалось определить игрока с наибольшим количеством рекордов.');
+                    return;
+                }
+            }
+
+            currentSteamId = targetSteamId;
+            renderProfile(targetSteamId);
         }
 
         // ===== Запуск =====
