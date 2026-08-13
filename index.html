@@ -5,319 +5,454 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CS2KZ Profile</title>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
 
     <style>
-        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            background: #0d0d1a;
+            background: rgb(10, 10, 10);
             font-family: 'Inter', sans-serif;
-            color: #e0e0e0;
+            color: rgb(255, 255, 255);
             min-height: 100vh;
             padding: 30px 20px;
             display: flex;
             justify-content: center;
         }
-
         .container {
             max-width: 1200px;
             width: 100%;
         }
-
-        /* ===== HEADER ===== */
         .profile-header {
             display: flex;
             align-items: center;
             gap: 24px;
-            background: #1a1a2e;
+            background: rgb(23, 23, 23);
+            border: 1px solid rgb(43, 43, 43);
             border-radius: 20px;
             padding: 24px 32px;
-            margin-bottom: 32px;
-            border: 1px solid #2a2a42;
+            margin-bottom: 24px;
             flex-wrap: wrap;
         }
-
         .profile-avatar {
             width: 80px;
             height: 80px;
-            border-radius: 50%;
-            border: 3px solid #4a4a6a;
+            border-radius: 10%;
+            border: 3px solid rgb(43, 43, 43);
             flex-shrink: 0;
-            background: #2a2a42;
+            background: rgb(23, 23, 23);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 32px;
             overflow: hidden;
         }
-
         .profile-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-
         .profile-info {
             flex: 1;
             min-width: 180px;
         }
-
         .profile-info .name {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 700;
-            color: #fff;
-            margin-bottom: 4px;
+            color: rgb(255, 255, 255);
+            margin-bottom: 2px;
         }
-
         .profile-info .steamid {
             font-size: 14px;
-            color: #8888aa;
+            color: rgb(175, 175, 175);
             font-family: monospace;
         }
-
-        .profile-links {
+        .profile-actions {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
             margin-left: auto;
         }
-
-        .profile-links a {
+        .profile-actions a {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             padding: 8px 16px;
             border-radius: 10px;
-            background: #2a2a42;
-            color: #c0c0e0;
+            background: rgb(30, 30, 30);
+            color: rgb(200, 200, 200);
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
             transition: background 0.2s, color 0.2s;
             border: 1px solid transparent;
         }
-
-        .profile-links a:hover {
-            background: #3a3a5a;
-            color: #fff;
-            border-color: #4a4a6a;
+        .profile-actions a:hover {
+            background: rgb(40, 40, 40);
+            color: rgb(255, 255, 255);
+            border-color: rgb(43, 43, 43);
         }
-
-        .profile-links a.steam-link:hover {
+        .profile-actions a.steam-link:hover {
             background: #1a3a5a;
             border-color: #4a8aba;
             color: #8ac4ff;
         }
-
-        .profile-links a.kz-link:hover {
+        .profile-actions a.kz-link:hover {
             background: #2a4a3a;
             border-color: #4aba8a;
             color: #8affc4;
         }
-
-        /* ===== STATS ROW ===== */
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 16px;
-            margin-bottom: 32px;
+        .profile-actions a.gokz-link:hover {
+            background: #3a2a4a;
+            border-color: #aa6aff;
+            color: #c48aff;
         }
-
+        .profile-actions .icon-link {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
         .stat-card {
-            background: #1a1a2e;
+            background: rgb(23, 23, 23);
+            border: 1px solid rgb(43, 43, 43);
             border-radius: 14px;
             padding: 16px 20px;
-            border: 1px solid #2a2a42;
             text-align: center;
         }
-
         .stat-card .value {
             font-size: 28px;
             font-weight: 700;
-            color: #fff;
+            color: rgb(255, 255, 255);
         }
-
         .stat-card .label {
             font-size: 12px;
-            color: #8888aa;
+            color: rgb(175, 175, 175);
             text-transform: uppercase;
             letter-spacing: 0.5px;
             margin-top: 2px;
         }
-
-        /* ===== TIER PROGRESS ===== */
-        .tier-section {
-            background: #1a1a2e;
-            border-radius: 20px;
-            padding: 24px 32px;
-            margin-bottom: 32px;
-            border: 1px solid #2a2a42;
-        }
-
-        .tier-section h2 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #aaaacc;
-            margin-bottom: 16px;
-            letter-spacing: 0.3px;
-        }
-
-        .tier-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 12px;
-        }
-
-        .tier-item {
-            background: #12121f;
-            border-radius: 10px;
-            padding: 12px 16px;
+        .filters {
             display: flex;
+            flex-wrap: wrap;
+            gap: 20px 32px;
+            background: rgb(23, 23, 23);
+            border: 1px solid rgb(43, 43, 43);
+            border-radius: 20px;
+            padding: 16px 28px;
+            margin-bottom: 24px;
             align-items: center;
-            gap: 12px;
-            border-left: 4px solid #555;
-            transition: background 0.2s;
         }
-
-        .tier-item .tier-dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .filters .filter-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
-
-        .tier-item .tier-label {
+        .filters .filter-group .label {
             font-size: 13px;
             font-weight: 500;
-            flex: 1;
-        }
-
-        .tier-item .tier-count {
-            font-size: 18px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        .tier-item .tier-count.zero {
-            color: #555;
-        }
-
-        /* ===== RECORDS TABLE ===== */
-        .records-section {
-            background: #1a1a2e;
-            border-radius: 20px;
-            padding: 24px 32px;
-            border: 1px solid #2a2a42;
-            overflow-x: auto;
-        }
-
-        .records-section h2 {
-            font-size: 16px;
-            font-weight: 600;
-            color: #aaaacc;
-            margin-bottom: 16px;
+            color: rgb(175, 175, 175);
+            margin-right: 4px;
             letter-spacing: 0.3px;
         }
-
-        .records-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-            min-width: 600px;
-        }
-
-        .records-table th {
-            text-align: left;
-            padding: 10px 12px;
-            color: #8888aa;
+        .filters .filter-btn {
+            padding: 6px 16px;
+            border-radius: 20px;
+            background: transparent;
+            color: rgb(175, 175, 175);
+            border: 1px solid transparent;
+            font-size: 13px;
             font-weight: 500;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 1px solid #2a2a42;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-
-        .records-table td {
-            padding: 10px 12px;
-            border-bottom: 1px solid #1a1a2a;
-            vertical-align: middle;
+        .filters .filter-btn:hover {
+            color: rgb(255, 255, 255);
+            background: rgba(255,255,255,0.05);
         }
-
-        .records-table tr:hover td {
-            background: #22223a;
+        .filters .filter-btn.active {
+            background: rgb(255, 255, 255);
+            color: rgb(10, 10, 10);
+            border-color: rgb(255, 255, 255);
+            box-shadow: 0 2px 8px rgba(255,255,255,0.15);
         }
-
-        .records-table .map-cell {
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+            align-items: flex-start;
+        }
+        @media (max-width: 700px) {
+            .two-col {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+        .left-col {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .tier-section {
+            background: rgb(23, 23, 23);
+            border: 1px solid rgb(43, 43, 43);
+            border-radius: 20px;
+            padding: 20px 24px;
+        }
+        .tier-section h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgb(175, 175, 175);
+            margin-bottom: 12px;
+        }
+        .tier-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            margin-bottom: 6px;
         }
-
-        .records-table .map-thumb {
-            width: 40px;
-            height: 40px;
-            border-radius: 6px;
-            object-fit: cover;
-            background: #2a2a42;
+        .tier-item .tier-label {
+            width: 100px;
+            font-size: 14px;
+            color: rgb(255, 255, 255);
             flex-shrink: 0;
         }
-
-        .records-table .map-name {
-            font-weight: 500;
+        .tier-item .tier-bar-wrap {
+            flex: 1;
+            height: 6px;
+            background: rgb(40, 40, 40);
+            border-radius: 3px;
+            overflow: hidden;
         }
-
-        .records-table .map-course {
-            font-size: 12px;
-            color: #8888aa;
+        .tier-item .tier-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            background: #6affa8;
+            transition: width 0.3s;
         }
-
-        .records-table .mode-badge {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 20px;
-            font-size: 11px;
+        .tier-item .tier-count {
+            width: 60px;
+            font-size: 14px;
+            color: rgb(175, 175, 175);
+            text-align: right;
+            flex-shrink: 0;
+        }
+        .tier-item .tier-count .done {
+            color: rgb(255, 255, 255);
             font-weight: 600;
-            background: #2a2a4a;
-            color: #aac;
         }
-
-        .records-table .mode-badge.ckz {
-            background: #1a3a4a;
-            color: #6ac8ff;
+        .section-with-filters {
+            background: rgb(23, 23, 23);
+            border: 1px solid rgb(43, 43, 43);
+            border-radius: 20px;
+            padding: 20px 24px;
         }
-
-        .records-table .mode-badge.vnl {
-            background: #2a4a3a;
-            color: #6affa8;
+        .section-with-filters .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 8px 12px;
         }
-
-        .records-table .time-cell {
+        .section-with-filters .section-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgb(175, 175, 175);
+            margin: 0;
+        }
+        .section-with-filters .section-header .filters-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .section-with-filters .section-header .filters-row .filter-btn {
+            padding: 4px 12px;
+            border-radius: 16px;
+            background: transparent;
+            color: rgb(175, 175, 175);
+            border: 1px solid transparent;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+        .section-with-filters .section-header .filters-row .filter-btn:hover {
+            color: rgb(255, 255, 255);
+            background: rgba(255,255,255,0.05);
+        }
+        .section-with-filters .section-header .filters-row .filter-btn.active {
+            background: rgb(255, 255, 255);
+            color: rgb(10, 10, 10);
+            border-color: rgb(255, 255, 255);
+            box-shadow: 0 2px 8px rgba(255,255,255,0.15);
+        }
+        .section-with-filters .section-header .filters-row .tier-select {
+            padding: 4px 10px;
+            border-radius: 16px;
+            background: rgb(30, 30, 30);
+            border: 1px solid rgb(43, 43, 43);
+            color: rgb(255, 255, 255);
+            font-size: 12px;
+            outline: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23afafaf'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            padding-right: 26px;
+            min-width: 60px;
+        }
+        .section-with-filters .section-header .filters-row .tier-select:focus {
+            border-color: rgb(100, 100, 140);
+        }
+        .section-with-filters .section-header .filters-row .tier-select option {
+            background: rgb(30, 30, 30);
+            color: rgb(255, 255, 255);
+        }
+        .section-with-filters .section-header .filters-row .search-input {
+            padding: 4px 12px;
+            border-radius: 16px;
+            background: rgb(30, 30, 30);
+            border: 1px solid rgb(43, 43, 43);
+            color: rgb(255, 255, 255);
+            font-size: 12px;
+            outline: none;
+            width: 140px;
+            transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .section-with-filters .section-header .filters-row .search-input:focus {
+            border-color: rgb(100, 100, 140);
+        }
+        .section-with-filters .section-header .filters-row .search-input::placeholder {
+            color: rgb(175, 175, 175);
+        }
+        .uncompleted-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .uncompleted-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 4px 0;
+        }
+        .uncompleted-item .map-thumb {
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: rgb(40, 40, 40);
+            flex-shrink: 0;
+        }
+        .uncompleted-item .uncompleted-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+        }
+        .uncompleted-item .map-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: rgb(255, 255, 255);
+        }
+        .uncompleted-item .course-tier {
+            font-size: 14px;
+            color: rgb(175, 175, 175);
+        }
+        .recent-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .recent-item {
+            display: flex;
+            align-items: stretch;
+            gap: 16px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgb(30, 30, 30);
+        }
+        .recent-item:last-child {
+            border-bottom: none;
+        }
+        .recent-item .map-thumb {
+            width: 72px;
+            height: 72px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: rgb(40, 40, 40);
+            flex-shrink: 0;
+        }
+        .recent-item .recent-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            min-height: 70px;
+        }
+        .recent-item .recent-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+        .recent-item .map-name {
+            font-weight: 600;
+            font-size: 18px;
+            color: rgb(255, 255, 255);
+        }
+        .recent-item .time {
+            font-family: monospace;
+            font-size: 16px;
             font-weight: 600;
             color: #aaffaa;
-            font-family: monospace;
-            font-size: 15px;
         }
-
-        .records-table .teleports-cell {
-            color: #aaa;
+        .recent-item .recent-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: rgb(175, 175, 175);
+        }
+        .recent-item .recent-bottom .course-tier {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .recent-item .recent-bottom .teleports-date {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .recent-item .recent-extra {
             font-size: 13px;
+            color: rgb(175, 175, 175);
+            margin-top: 2px;
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
         }
-
-        .records-table .date-cell {
-            color: #777;
-            font-size: 12px;
+        .recent-item .recent-extra .count {
+            color: rgb(200, 200, 200);
+            font-weight: 500;
         }
-
-        /* ===== LOADING / ERROR / NOT FOUND ===== */
         .loading-state,
         .error-state,
         .not-found {
@@ -328,40 +463,36 @@
             min-height: 300px;
             text-align: center;
             padding: 40px 20px;
+            background: rgb(23, 23, 23);
+            border-radius: 20px;
+            color: rgb(255, 255, 255);
         }
-
         .loading-state .spinner {
             width: 48px;
             height: 48px;
-            border: 4px solid #2a2a42;
+            border: 4px solid rgb(43, 43, 43);
             border-top-color: #6ac8ff;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
             margin-bottom: 16px;
         }
-
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-
         .loading-state p,
         .error-state p,
         .not-found p {
-            color: #8888aa;
+            color: rgb(175, 175, 175);
             font-size: 16px;
         }
-
         .error-state p {
             color: #ff6b6b;
         }
-
         .not-found .big-icon {
             font-size: 64px;
             margin-bottom: 16px;
             opacity: 0.5;
         }
-
-        /* ===== RESPONSIVE ===== */
         @media (max-width: 700px) {
             body { padding: 16px 12px; }
             .profile-header {
@@ -370,22 +501,36 @@
                 text-align: center;
                 padding: 20px;
             }
-            .profile-links {
+            .profile-actions {
                 margin-left: 0;
                 justify-content: center;
             }
-            .profile-info .name { font-size: 20px; }
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
-            .tier-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
-            .records-section { padding: 16px; }
-            .records-table { font-size: 13px; min-width: 480px; }
-            .records-table .map-thumb { width: 32px; height: 32px; }
+            .profile-info .name { font-size: 24px; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .tier-item .tier-label { width: 80px; }
+            .filters { flex-direction: column; align-items: stretch; gap: 10px; padding: 16px; }
+            .filters .filter-group { flex-wrap: wrap; }
+            .section-with-filters .section-header {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            .section-with-filters .section-header .filters-row {
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+            .recent-item .map-thumb { width: 60px; min-height: 60px; }
+            .recent-item .map-name { font-size: 16px; }
+            .uncompleted-item .map-thumb { width: 60px; min-height: 60px; }
         }
-
         @media (max-width: 480px) {
-            .stats-row { grid-template-columns: 1fr; }
-            .tier-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr; }
             .profile-header { padding: 16px; }
+            .tier-item .tier-label { width: 70px; font-size: 12px; }
+            .tier-item .tier-count { width: 50px; font-size: 12px; }
+            .recent-item .map-thumb { width: 50px; min-height: 50px; }
+            .uncompleted-item .map-thumb { width: 50px; min-height: 50px; }
+            .section-with-filters .section-header .filters-row .search-input { width: 100%; }
         }
     </style>
 </head>
@@ -399,7 +544,6 @@
     (function() {
         'use strict';
 
-        // ===== Конфигурация =====
         const REPO_OWNER = 'yesseir';
         const REPO_NAME = 'cs2kz-profile';
         const BRANCH = 'main';
@@ -408,35 +552,47 @@
         const PLAYERS_URL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/data/players.json`;
         const MAPS_URL = 'https://raw.githubusercontent.com/YesSeir/cs2kz-maps/main/maps.json';
 
-        // ===== Состояние =====
         let allRecords = [];
         let allPlayers = [];
         let allMaps = [];
         let currentSteamId = null;
 
+        // Глобальные фильтры
+        let modeFilter = 'CKZ';
+        let typeFilter = 'Overall';
+        let courseFilter = 'ALL';
+
+        // Локальные фильтры для Personal Best
+        let sortPB = 'created';
+        let tierPB = 0;
+        let searchPB = '';
+
+        // Локальные фильтры для Unfinished
+        let tierUnfinished = 0;
+        let searchUnfinished = '';
+
+        // Для восстановления фокуса
+        let lastFocusedInput = null; // { target: 'pb' | 'unfinished', selectionStart: number, selectionEnd: number }
+
         const contentEl = document.getElementById('content');
 
-        // ===== Вспомогательные функции =====
+        // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
         function getSteamIdFromUrl() {
             const path = window.location.pathname;
             const parts = path.split('/').filter(p => p.length > 0);
             const last = parts[parts.length - 1];
-            if (last && /^\d{17}$/.test(last)) {
-                return last;
-            }
+            if (last && /^\d{17}$/.test(last)) return last;
             return null;
         }
 
-        // Находит SteamID с наибольшим количеством записей в allRecords
         function findMostFrequentSteamId() {
-            if (!allRecords || allRecords.length === 0) return null;
+            if (!allRecords || !allRecords.length) return null;
             const countMap = {};
             allRecords.forEach(r => {
                 const id = r.steamid;
                 if (id) countMap[id] = (countMap[id] || 0) + 1;
             });
-            let maxCount = 0;
-            let mostFrequentId = null;
+            let maxCount = 0, mostFrequentId = null;
             for (const [id, count] of Object.entries(countMap)) {
                 if (count > maxCount) {
                     maxCount = count;
@@ -453,42 +609,230 @@
             return `${String(mins).padStart(2, '0')}:${secs.toFixed(3).padStart(6, '0')}`;
         }
 
-        function getModeLabel(modeId) {
-            return modeId === 2 ? 'CKZ' : 'VNL';
+        function formatTotalTime(seconds) {
+            if (!seconds || seconds <= 0) return '0s';
+            const days = Math.floor(seconds / 86400);
+            seconds %= 86400;
+            const hours = Math.floor(seconds / 3600);
+            seconds %= 3600;
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.round(seconds % 60);
+            const parts = [];
+            if (days > 0) parts.push(`${days}d`);
+            if (hours > 0) parts.push(`${hours}h`);
+            if (minutes > 0) parts.push(`${minutes}m`);
+            if (secs > 0 || parts.length === 0) parts.push(`${secs}s`);
+            return parts.join(' ');
         }
 
-        function getModeClass(modeId) {
-            return modeId === 2 ? 'ckz' : 'vnl';
+        function parseCreated(createdStr) {
+            if (!createdStr) return new Date(0);
+            const parts = createdStr.split(' ');
+            if (parts.length !== 2) return new Date(0);
+            const time = parts[0];
+            const date = parts[1];
+            const [day, month, year] = date.split('.');
+            const [hours, minutes, seconds] = time.split(':');
+            return new Date(+year, +month - 1, +day, +hours, +minutes, +seconds);
         }
 
-        function getSteamProfileUrl(steamId) {
-            return `https://steamcommunity.com/profiles/${steamId}`;
+        function getSteamProfileUrl(steamId) { return `https://steamcommunity.com/profiles/${steamId}`; }
+        function getCs2kzProfileUrl(steamId) { return `https://cs2kz.org/player/${steamId}`; }
+        function getGokzProfileUrl(steamId) { return `https://gokz.top/profile/${steamId}/records`; }
+
+        function findPlayer(steamId) {
+            return allPlayers.find(p => p.steamid === steamId);
         }
 
-        function getCs2kzProfileUrl(steamId) {
-            return `https://cs2kz.org/player/${steamId}`;
+        function getPlayerAvatar(steamId) {
+            const player = findPlayer(steamId);
+            return player?.avatar || null;
         }
 
-        function getSteamAvatarUrl(steamId) {
-            return `https://avatars.steamstatic.com/${steamId}.jpg?size=medium`;
-        }
-
-        function getMapImage(mapName) {
-            const map = allMaps.find(m => m.mapname && m.mapname.toLowerCase() === mapName.toLowerCase());
-            return map?.image || `https://raw.githubusercontent.com/YesSeir/cs2kz-maps/main/maps/${mapName}.jpg`;
-        }
-
-        function getMapTier(mapName, mode, type) {
-            const map = allMaps.find(m => m.mapname && m.mapname.toLowerCase() === mapName.toLowerCase());
+        function getMapTier(mapName, mode, courseid, type = 'nub') {
+            const map = allMaps.find(m => m.mapname === mapName && m.courseid === courseid);
             if (!map) return 0;
-            if (mode === 2) { // CKZ
+            const isCkz = (mode === 'CKZ');
+            if (isCkz) {
                 return type === 'nub' ? (map.ckznubtier || 0) : (map.ckzprotier || 0);
-            } else { // VNL
+            } else {
                 return type === 'nub' ? (map.vnlnubtier || 0) : (map.vnlprotier || 0);
             }
         }
 
-        // ===== Загрузка данных =====
+        function filterRecordsForStats(records) {
+            let filtered = records.slice();
+            filtered = filtered.filter(r => r.mode === modeFilter);
+            if (typeFilter === 'Pro') {
+                filtered = filtered.filter(r => r.teleports === 0);
+            }
+            if (courseFilter === 'Main') {
+                filtered = filtered.filter(r => r.courseid === 1);
+            } else if (courseFilter === 'Bonus') {
+                filtered = filtered.filter(r => r.courseid > 1);
+            }
+            return filtered;
+        }
+
+        function getTotalCoursesCount(mode, type, courseFilter) {
+            let count = 0;
+            allMaps.forEach(map => {
+                const tier = getMapTier(map.mapname, mode, map.courseid, type);
+                if (tier > 0 && tier <= 10) {
+                    if (courseFilter === 'ALL' || (courseFilter === 'Main' && map.courseid === 1) || (courseFilter === 'Bonus' && map.courseid > 1)) {
+                        count++;
+                    }
+                }
+            });
+            return count;
+        }
+
+        function getCompletedCoursesByTier(playerRecords) {
+            const statsRecords = filterRecordsForStats(playerRecords);
+            const uniqueCourses = new Set();
+            statsRecords.forEach(r => {
+                const key = `${r.mapname}|${r.courseid}`;
+                uniqueCourses.add(key);
+            });
+            const tierCounts = {};
+            for (const key of uniqueCourses) {
+                const [mapname, courseid] = key.split('|');
+                const tier = getMapTier(mapname, modeFilter, parseInt(courseid), typeFilter === 'Pro' ? 'pro' : 'nub');
+                if (tier > 0 && tier <= 10) {
+                    tierCounts[tier] = (tierCounts[tier] || 0) + 1;
+                }
+            }
+            return tierCounts;
+        }
+
+        function getTotalCoursesByTier(mode, type, courseFilter) {
+            const total = {};
+            allMaps.forEach(map => {
+                const tier = getMapTier(map.mapname, mode, map.courseid, type);
+                if (tier > 0 && tier <= 10) {
+                    if (courseFilter === 'ALL' || (courseFilter === 'Main' && map.courseid === 1) || (courseFilter === 'Bonus' && map.courseid > 1)) {
+                        total[tier] = (total[tier] || 0) + 1;
+                    }
+                }
+            });
+            return total;
+        }
+
+        function getFilteredAndSortedPB(playerRecords) {
+            let filtered = playerRecords.filter(r => r.mode === modeFilter);
+            if (courseFilter === 'Main') {
+                filtered = filtered.filter(r => r.courseid === 1);
+            } else if (courseFilter === 'Bonus') {
+                filtered = filtered.filter(r => r.courseid > 1);
+            }
+            const candidates = (typeFilter === 'Pro') ? filtered.filter(r => r.teleports === 0) : filtered;
+
+            const groups = {};
+            filtered.forEach(r => {
+                const key = `${r.mapname}|${r.courseid}|${r.mode}`;
+                if (!groups[key]) {
+                    groups[key] = {
+                        mapname: r.mapname,
+                        courseid: r.courseid,
+                        mode: r.mode,
+                        count: 0,
+                        records: []
+                    };
+                }
+                groups[key].count++;
+                groups[key].records.push(r);
+            });
+
+            const result = [];
+            for (const key in groups) {
+                const group = groups[key];
+                const groupCandidates = candidates.filter(r => 
+                    r.mapname === group.mapname && 
+                    r.courseid === group.courseid && 
+                    r.mode === group.mode
+                );
+                if (groupCandidates.length === 0) continue;
+                const best = groupCandidates.reduce((a, b) => a.time < b.time ? a : b);
+                const maxDate = group.records.reduce((max, rec) => {
+                    const d = parseCreated(rec.created);
+                    return d > max ? d : max;
+                }, new Date(0));
+                const tier = getMapTier(best.mapname, best.mode, best.courseid, typeFilter === 'Pro' ? 'pro' : 'nub');
+                if (tier === 0) continue;
+                result.push({
+                    bestRecord: best,
+                    count: group.count,
+                    lastDate: maxDate,
+                    tier: tier
+                });
+            }
+
+            let filteredResult = result;
+            if (tierPB > 0) {
+                filteredResult = filteredResult.filter(item => item.tier === tierPB);
+            }
+            if (searchPB.trim() !== '') {
+                const query = searchPB.trim().toLowerCase();
+                filteredResult = filteredResult.filter(item => item.bestRecord.mapname.toLowerCase().includes(query));
+            }
+            if (sortPB === 'alphabet') {
+                filteredResult.sort((a, b) => a.bestRecord.mapname.localeCompare(b.bestRecord.mapname));
+            } else {
+                filteredResult.sort((a, b) => b.lastDate - a.lastDate);
+            }
+            return filteredResult;
+        }
+
+        function getFilteredAndSortedUnfinished(playerRecords) {
+            const allCoursesWithTier = allMaps.filter(map => {
+                const tier = getMapTier(map.mapname, modeFilter, map.courseid, typeFilter === 'Pro' ? 'pro' : 'nub');
+                return tier > 0;
+            });
+
+            let filteredCourses = allCoursesWithTier;
+            if (courseFilter === 'Main') {
+                filteredCourses = filteredCourses.filter(c => c.courseid === 1);
+            } else if (courseFilter === 'Bonus') {
+                filteredCourses = filteredCourses.filter(c => c.courseid > 1);
+            }
+
+            const statsRecords = filterRecordsForStats(playerRecords);
+            const completedSet = new Set();
+            statsRecords.forEach(r => {
+                const key = `${r.mapname}|${r.courseid}`;
+                completedSet.add(key);
+            });
+
+            let unfinished = filteredCourses
+                .filter(course => {
+                    const key = `${course.mapname}|${course.courseid}`;
+                    return !completedSet.has(key);
+                })
+                .map(course => {
+                    const tier = getMapTier(course.mapname, modeFilter, course.courseid, typeFilter === 'Pro' ? 'pro' : 'nub');
+                    return {
+                        mapname: course.mapname,
+                        coursename: course.coursename || 'Main',
+                        courseid: course.courseid,
+                        tier: tier,
+                        image: course.image || null
+                    };
+                })
+                .filter(item => item.tier > 0);
+
+            let filtered = unfinished;
+            if (tierUnfinished > 0) {
+                filtered = filtered.filter(item => item.tier === tierUnfinished);
+            }
+            if (searchUnfinished.trim() !== '') {
+                const query = searchUnfinished.trim().toLowerCase();
+                filtered = filtered.filter(item => item.mapname.toLowerCase().includes(query));
+            }
+            filtered.sort((a, b) => a.mapname.localeCompare(b.mapname));
+            return filtered;
+        }
+
+        // ===== ЗАГРУЗКА ДАННЫХ =====
         async function fetchJson(url) {
             const resp = await fetch(url);
             if (!resp.ok) throw new Error(`HTTP ${resp.status} — ${resp.statusText}`);
@@ -507,12 +851,12 @@
                 allMaps = maps || [];
                 return true;
             } catch (err) {
-                console.error('Failed to load data:', err);
+                console.error('Не удалось загрузить данные:', err);
                 return false;
             }
         }
 
-        // ===== Рендеринг =====
+        // ===== RENDER STATES =====
         function renderLoading() {
             contentEl.innerHTML = `
                 <div class="loading-state">
@@ -535,7 +879,7 @@
                 <div class="not-found">
                     <div class="big-icon">👤</div>
                     <p>Игрок с таким SteamID не найден</p>
-                    <p style="font-size:14px;margin-top:8px;color:#555;">
+                    <p style="font-size:14px;margin-top:8px;color:rgb(175,175,175);">
                         Проверьте, что SteamID корректен, и что данные загружены.
                     </p>
                 </div>
@@ -547,93 +891,101 @@
                 <div class="not-found">
                     <div class="big-icon">📭</div>
                     <p>Нет данных о рекордах</p>
-                    <p style="font-size:14px;margin-top:8px;color:#555;">
+                    <p style="font-size:14px;margin-top:8px;color:rgb(175,175,175);">
                         Файл records.json пуст или отсутствует.
                     </p>
                 </div>
             `;
         }
 
+        // ===== ВОССТАНОВЛЕНИЕ ФОКУСА ПОСЛЕ РЕНДЕРА =====
+        function restoreFocus() {
+            if (!lastFocusedInput) return;
+            const target = lastFocusedInput.target;
+            const input = document.querySelector(`.search-input[data-target="${target}"]`);
+            if (input) {
+                input.focus();
+                if (input.setSelectionRange) {
+                    input.setSelectionRange(lastFocusedInput.selectionStart, lastFocusedInput.selectionEnd);
+                }
+            }
+        }
+
+        // ===== MAIN RENDER =====
         function renderProfile(steamId) {
-            // Находим игрока в players.json (просто проверяем наличие)
-            const playerExists = allPlayers.includes(steamId);
-
-            // Находим все рекорды этого игрока
             const playerRecords = allRecords.filter(r => r.steamid === steamId);
-
-            // Если игрока нет в players.json и нет рекордов — считаем не найденным
-            if (!playerExists && playerRecords.length === 0) {
+            if (playerRecords.length === 0) {
                 renderNotFound();
                 return;
             }
 
-            // Имя игрока — берём из первого рекорда или ставим "Unknown"
-            const playerName = playerRecords.length > 0 ? playerRecords[0].player_name : 'Unknown Player';
+            const playerInfo = findPlayer(steamId);
+            const playerName = playerInfo?.playername || playerRecords[0].playername || 'Unknown Player';
+            const avatarUrl = playerInfo?.avatar || null;
 
-            // Статистика
-            const totalRecords = playerRecords.length;
-            const uniqueMaps = new Set(playerRecords.map(r => r.mapname)).size;
-            const bestTime = playerRecords.reduce((min, r) => r.time < min ? r.time : min, Infinity);
-            const bestTimeFormatted = bestTime !== Infinity ? formatTime(bestTime) : '—';
+            const statsRecords = filterRecordsForStats(playerRecords);
+            const totalTime = statsRecords.reduce((sum, r) => sum + r.time, 0);
+            const totalTimeFormatted = formatTotalTime(totalTime);
 
-            // Группировка рекордов по тирам (для прогресса)
-            const tierCounts = {};
-            playerRecords.forEach(r => {
-                const tier = getMapTier(r.mapname, r.mode === 'CKZ' ? 2 : 1, 'nub');
-                if (tier > 0) {
-                    tierCounts[tier] = (tierCounts[tier] || 0) + 1;
-                }
-            });
+            const tierCounts = getCompletedCoursesByTier(playerRecords);
+            const completedCoursesCount = Object.values(tierCounts).reduce((sum, count) => sum + count, 0);
+            const totalCoursesCount = getTotalCoursesCount(modeFilter, typeFilter === 'Pro' ? 'pro' : 'nub', courseFilter);
+
+            const totalTiers = getTotalCoursesByTier(modeFilter, typeFilter === 'Pro' ? 'pro' : 'nub', courseFilter);
+
+            let totalDone = 0, totalAll = 0;
+            for (let t = 1; t <= 10; t++) {
+                totalDone += tierCounts[t] || 0;
+                totalAll += totalTiers[t] || 0;
+            }
+            const overallPercent = totalAll > 0 ? Math.round((totalDone / totalAll) * 100) : 0;
+
+            const pbItems = getFilteredAndSortedPB(playerRecords);
+            const unfinishedItems = getFilteredAndSortedUnfinished(playerRecords);
 
             const tierLabels = {
-                1: '1 — Very Easy',
-                2: '2 — Easy',
-                3: '3 — Medium',
-                4: '4 — Advanced',
-                5: '5 — Hard',
-                6: '6 — Very Hard',
-                7: '7 — Extreme',
-                8: '8 — Death',
-                9: '9 — Unfeasible',
-                10: '10 — Impossible'
-            };
-            const tierColors = {
-                1: '#6bc96f',
-                2: '#33bd3a',
-                3: '#d8e302',
-                4: '#FFC107',
-                5: '#e37910',
-                6: '#e34202',
-                7: '#e31c02',
-                8: '#bb02db',
-                9: '#dbdbdb',
-                10: '#d1d1d1'
+                1: 'Very Easy',
+                2: 'Easy',
+                3: 'Medium',
+                4: 'Advanced',
+                5: 'Hard',
+                6: 'Very Hard',
+                7: 'Extreme',
+                8: 'Death',
+                9: 'Unfeasible',
+                10: 'Impossible'
             };
 
-            // Сортируем рекорды по времени (лучшие сверху)
-            const sortedRecords = [...playerRecords].sort((a, b) => a.time - b.time);
-
-            // ===== Сборка HTML =====
             let html = '';
 
             // --- Header ---
             html += `
                 <div class="profile-header">
                     <div class="profile-avatar">
-                        <img src="${getSteamAvatarUrl(steamId)}" alt="Avatar" onerror="this.parentElement.textContent='🎮'" />
+                        ${avatarUrl ? `<img src="${escapeHtml(avatarUrl)}" alt="Avatar" />` : `<span>🎮</span>`}
                     </div>
                     <div class="profile-info">
                         <div class="name">${escapeHtml(playerName)}</div>
                         <div class="steamid">${steamId}</div>
                     </div>
-                    <div class="profile-links">
+                    <div class="profile-actions">
                         <a href="${getSteamProfileUrl(steamId)}" target="_blank" class="steam-link">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
                             Steam
+                            <svg class="icon-link" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M384 64C366.3 64 352 78.3 352 96C352 113.7 366.3 128 384 128L466.7 128L265.3 329.4C252.8 341.9 252.8 362.2 265.3 374.7C277.8 387.2 298.1 387.2 310.6 374.7L512 173.3L512 256C512 273.7 526.3 288 544 288C561.7 288 576 273.7 576 256L576 96C576 78.3 561.7 64 544 64L384 64zM144 160C99.8 160 64 195.8 64 240L64 496C64 540.2 99.8 576 144 576L400 576C444.2 576 480 540.2 480 496L480 416C480 398.3 465.7 384 448 384C430.3 384 416 398.3 416 416L416 496C416 504.8 408.8 512 400 512L144 512C135.2 512 128 504.8 128 496L128 240C128 231.2 135.2 224 144 224L224 224C241.7 224 256 209.7 256 192C256 174.3 241.7 160 224 160L144 160z"/>
+                            </svg>
                         </a>
                         <a href="${getCs2kzProfileUrl(steamId)}" target="_blank" class="kz-link">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14.5c-3.59 0-6.5-2.91-6.5-6.5S4.41 1.5 8 1.5s6.5 2.91 6.5 6.5-2.91 6.5-6.5 6.5z"/><path d="M7 4h2v5H7zm0 6h2v2H7z"/></svg>
-                            CS2KZ.org
+                            CS2KZ
+                            <svg class="icon-link" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M384 64C366.3 64 352 78.3 352 96C352 113.7 366.3 128 384 128L466.7 128L265.3 329.4C252.8 341.9 252.8 362.2 265.3 374.7C277.8 387.2 298.1 387.2 310.6 374.7L512 173.3L512 256C512 273.7 526.3 288 544 288C561.7 288 576 273.7 576 256L576 96C576 78.3 561.7 64 544 64L384 64zM144 160C99.8 160 64 195.8 64 240L64 496C64 540.2 99.8 576 144 576L400 576C444.2 576 480 540.2 480 496L480 416C480 398.3 465.7 384 448 384C430.3 384 416 398.3 416 416L416 496C416 504.8 408.8 512 400 512L144 512C135.2 512 128 504.8 128 496L128 240C128 231.2 135.2 224 144 224L224 224C241.7 224 256 209.7 256 192C256 174.3 241.7 160 224 160L144 160z"/>
+                            </svg>
+                        </a>
+                        <a href="${getGokzProfileUrl(steamId)}" target="_blank" class="gokz-link">
+                            GOKZ
+                            <svg class="icon-link" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M384 64C366.3 64 352 78.3 352 96C352 113.7 366.3 128 384 128L466.7 128L265.3 329.4C252.8 341.9 252.8 362.2 265.3 374.7C277.8 387.2 298.1 387.2 310.6 374.7L512 173.3L512 256C512 273.7 526.3 288 544 288C561.7 288 576 273.7 576 256L576 96C576 78.3 561.7 64 544 64L384 64zM144 160C99.8 160 64 195.8 64 240L64 496C64 540.2 99.8 576 144 576L400 576C444.2 576 480 540.2 480 496L480 416C480 398.3 465.7 384 448 384C430.3 384 416 398.3 416 416L416 496C416 504.8 408.8 512 400 512L144 512C135.2 512 128 504.8 128 496L128 240C128 231.2 135.2 224 144 224L224 224C241.7 224 256 209.7 256 192C256 174.3 241.7 160 224 160L144 160z"/>
+                            </svg>
                         </a>
                     </div>
                 </div>
@@ -641,105 +993,261 @@
 
             // --- Stats ---
             html += `
-                <div class="stats-row">
+                <div class="stats-grid">
                     <div class="stat-card">
-                        <div class="value">${totalRecords}</div>
-                        <div class="label">Всего рекордов</div>
+                        <div class="value">${overallPercent}%</div>
+                        <div class="label">Progress</div>
                     </div>
                     <div class="stat-card">
-                        <div class="value">${uniqueMaps}</div>
-                        <div class="label">Уникальных карт</div>
+                        <div class="value">${completedCoursesCount}/${totalCoursesCount}</div>
+                        <div class="label">Maps</div>
                     </div>
                     <div class="stat-card">
-                        <div class="value">${bestTimeFormatted}</div>
-                        <div class="label">Лучшее время</div>
+                        <div class="value">${escapeHtml(totalTimeFormatted)}</div>
+                        <div class="label">Time in runs</div>
                     </div>
                 </div>
             `;
 
-            // --- Tier Progress ---
+            // --- Глобальные фильтры ---
+            html += `
+                <div class="filters">
+                    <div class="filter-group">
+                        <span class="label">Mode</span>
+                        <button class="filter-btn ${modeFilter === 'CKZ' ? 'active' : ''}" data-filter="mode" data-value="CKZ">CKZ</button>
+                        <button class="filter-btn ${modeFilter === 'VNL' ? 'active' : ''}" data-filter="mode" data-value="VNL">VNL</button>
+                    </div>
+                    <div class="filter-group">
+                        <span class="label">Type</span>
+                        <button class="filter-btn ${typeFilter === 'Overall' ? 'active' : ''}" data-filter="type" data-value="Overall">Overall</button>
+                        <button class="filter-btn ${typeFilter === 'Pro' ? 'active' : ''}" data-filter="type" data-value="Pro">Pro</button>
+                    </div>
+                    <div class="filter-group">
+                        <span class="label">Course</span>
+                        <button class="filter-btn ${courseFilter === 'ALL' ? 'active' : ''}" data-filter="course" data-value="ALL">ALL</button>
+                        <button class="filter-btn ${courseFilter === 'Main' ? 'active' : ''}" data-filter="course" data-value="Main">Main</button>
+                        <button class="filter-btn ${courseFilter === 'Bonus' ? 'active' : ''}" data-filter="course" data-value="Bonus">Bonus</button>
+                    </div>
+                </div>
+            `;
+
+            // --- Two columns ---
+            html += `<div class="two-col">`;
+
+            // Левая колонка
+            html += `<div class="left-col">`;
+
+            // --- Tier progress ---
             html += `
                 <div class="tier-section">
-                    <h2>🏆 Прогресс по тирам</h2>
-                    <div class="tier-grid">
+                    <h3>Tier progress</h3>
             `;
             for (let tier = 1; tier <= 10; tier++) {
-                const count = tierCounts[tier] || 0;
-                const color = tierColors[tier] || '#555';
+                const done = tierCounts[tier] || 0;
+                const total = totalTiers[tier] || 0;
+                const percent = total > 0 ? Math.round((done / total) * 100) : 0;
                 const label = tierLabels[tier] || `Тир ${tier}`;
                 html += `
-                    <div class="tier-item" style="border-left-color:${color};">
-                        <div class="tier-dot" style="background:${color};"></div>
-                        <div class="tier-label">${label}</div>
-                        <div class="tier-count ${count === 0 ? 'zero' : ''}">${count}</div>
+                    <div class="tier-item">
+                        <span class="tier-label">${label}</span>
+                        <div class="tier-bar-wrap">
+                            <div class="tier-bar-fill" style="width: ${percent}%;"></div>
+                        </div>
+                        <span class="tier-count"><span class="done">${done}</span>/${total}</span>
                     </div>
                 `;
             }
             html += `
+                </div>
+            `;
+
+            // --- Unfinished maps ---
+            html += `
+                <div class="section-with-filters">
+                    <div class="section-header">
+                        <h3>Unfinished</h3>
+                        <div class="filters-row">
+                            <select class="tier-select" data-target="unfinished">
+                                <option value="0" ${tierUnfinished === 0 ? 'selected' : ''}>All</option>
+                                ${[1,2,3,4,5,6,7,8,9,10].map(t => `
+                                    <option value="${t}" ${tierUnfinished === t ? 'selected' : ''}>${t}</option>
+                                `).join('')}
+                            </select>
+                            <input type="text" class="search-input" data-target="unfinished" value="${escapeHtml(searchUnfinished)}" placeholder="Search map..." />
+                        </div>
+                    </div>
+                    <div class="uncompleted-list">
+                        ${unfinishedItems.length > 0 
+                            ? unfinishedItems.map(item => {
+                                const mapImg = item.image || `https://via.placeholder.com/80/2a2a42/aaa?text=${item.mapname.substring(0,3)}`;
+                                const tierLabel = tierLabels[item.tier] || `Тир ${item.tier}`;
+                                const courseName = item.coursename || 'Main';
+                                return `
+                                    <div class="uncompleted-item">
+                                        <img class="map-thumb" src="${mapImg}" alt="${item.mapname}" onerror="this.style.display='none'" />
+                                        <div class="uncompleted-content">
+                                            <span class="map-name">${escapeHtml(item.mapname)}</span>
+                                            <span class="course-tier">${escapeHtml(courseName)} · ${tierLabel}</span>
+                                        </div>
+                                    </div>
+                                `;
+                              }).join('')
+                            : '<div style="color:rgb(175,175,175);">Все карты пройдены! 🎉</div>'
+                        }
                     </div>
                 </div>
             `;
 
-            // --- Records Table ---
-            html += `
-                <div class="records-section">
-                    <h2>📋 Все рекорды</h2>
-                    <div style="overflow-x:auto;">
-                        <table class="records-table">
-                            <thead>
-                                <tr>
-                                    <th>Карта</th>
-                                    <th>Режим</th>
-                                    <th>Время</th>
-                                    <th>Телепорты</th>
-                                    <th>Дата</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-            `;
+            html += `</div>`; // конец left-col
 
-            if (sortedRecords.length === 0) {
-                html += `
-                    <tr>
-                        <td colspan="5" style="text-align:center;padding:30px;color:#666;">
-                            У этого игрока пока нет рекордов
-                        </td>
-                    </tr>
-                `;
+            // --- Правая колонка: Personal Best ---
+            html += `
+                <div class="section-with-filters">
+                    <div class="section-header">
+                        <h3>Personal Best</h3>
+                        <div class="filters-row">
+                            <button class="filter-btn ${sortPB === 'alphabet' ? 'active' : ''}" data-target="pb" data-sort="alphabet">A-Z</button>
+                            <button class="filter-btn ${sortPB === 'created' ? 'active' : ''}" data-target="pb" data-sort="created">Date</button>
+                            <select class="tier-select" data-target="pb">
+                                <option value="0" ${tierPB === 0 ? 'selected' : ''}>All</option>
+                                ${[1,2,3,4,5,6,7,8,9,10].map(t => `
+                                    <option value="${t}" ${tierPB === t ? 'selected' : ''}>${t}</option>
+                                `).join('')}
+                            </select>
+                            <input type="text" class="search-input" data-target="pb" value="${escapeHtml(searchPB)}" placeholder="Search map..." />
+                        </div>
+                    </div>
+                    <div class="recent-list">
+            `;
+            if (pbItems.length === 0) {
+                html += `<div style="color:rgb(175,175,175);">Нет записей, соответствующих фильтрам</div>`;
             } else {
-                sortedRecords.forEach(r => {
-                    const mapImage = getMapImage(r.mapname);
-                    const modeLabel = r.mode || 'CKZ';
-                    const modeClass = modeLabel.toLowerCase();
-                    const dateStr = r.created_formatted || r.created_raw || '—';
+                pbItems.forEach(item => {
+                    const r = item.bestRecord;
+                    const mapName = r.mapname || 'Unknown';
+                    const course = r.course || 'Main';
+                    const teleports = r.teleports ?? 0;
+                    const timeDisplay = r.runtime || formatTime(r.time);
+                    const mapCourse = allMaps.find(m => m.mapname === mapName && m.courseid === r.courseid);
+                    const mapImg = mapCourse?.image || `https://via.placeholder.com/80/2a2a42/aaa?text=${mapName.substring(0,3)}`;
+                    const tier = item.tier;
+                    const tierLabel = tierLabels[tier] || `Тир ${tier}`;
+                    const count = item.count;
+                    const dateStr = r.created ? r.created.split(' ')[1] : '—';
                     html += `
-                        <tr>
-                            <td>
-                                <div class="map-cell">
-                                    <img class="map-thumb" src="${mapImage}" alt="${r.mapname}" onerror="this.style.display='none'" />
-                                    <div>
-                                        <div class="map-name">${escapeHtml(r.mapname)}</div>
-                                        <div class="map-course">${escapeHtml(r.course || 'Main')}</div>
-                                    </div>
+                        <div class="recent-item">
+                            <img class="map-thumb" src="${mapImg}" alt="${mapName}" onerror="this.style.display='none'" />
+                            <div class="recent-content">
+                                <div class="recent-top">
+                                    <span class="map-name">${escapeHtml(mapName)}</span>
+                                    <span class="time">${escapeHtml(timeDisplay)}</span>
                                 </div>
-                            </td>
-                            <td><span class="mode-badge ${modeClass}">${modeLabel}</span></td>
-                            <td class="time-cell">${r.run_time || formatTime(r.time)}</td>
-                            <td class="teleports-cell">${r.teleports ?? 0}</td>
-                            <td class="date-cell">${dateStr}</td>
-                        </tr>
+                                <div class="recent-bottom">
+                                    <span class="course-tier">
+                                        ${escapeHtml(course)}
+                                        <span>· ${tierLabel}</span>
+                                    </span>
+                                    <span class="teleports-date">
+                                        <span>${teleports} tps</span>
+                                    </span>
+                                </div>
+                                <div class="recent-extra">
+                                    <span class="count">${count} finishes</span>
+                                    <span>${escapeHtml(dateStr)}</span>
+                                </div>
+                            </div>
+                        </div>
                     `;
                 });
             }
-
             html += `
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             `;
 
+            html += `</div>`; // end two-col
+
             contentEl.innerHTML = html;
+
+            // --- Восстанавливаем фокус после рендера ---
+            restoreFocus();
+
+            // --- Обработчики для локальных фильтров ---
+            // Sort кнопки (PB)
+            document.querySelectorAll('.section-with-filters .filter-btn[data-sort]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const target = this.dataset.target;
+                    const sort = this.dataset.sort;
+                    if (target === 'pb') {
+                        sortPB = sort;
+                        renderProfile(steamId);
+                    }
+                });
+            });
+
+            // Select Tier (PB и Unfinished)
+            document.querySelectorAll('.section-with-filters .tier-select').forEach(select => {
+                select.addEventListener('change', function() {
+                    const target = this.dataset.target;
+                    const tier = parseInt(this.value, 10);
+                    if (target === 'pb') {
+                        tierPB = tier;
+                    } else if (target === 'unfinished') {
+                        tierUnfinished = tier;
+                    }
+                    renderProfile(steamId);
+                });
+            });
+
+            // Search input (PB) — мгновенное обновление с сохранением фокуса
+            document.querySelectorAll('.section-with-filters .search-input[data-target="pb"]').forEach(input => {
+                input.addEventListener('input', function() {
+                    const el = this;
+                    lastFocusedInput = {
+                        target: 'pb',
+                        selectionStart: el.selectionStart,
+                        selectionEnd: el.selectionEnd
+                    };
+                    searchPB = el.value;
+                    renderProfile(steamId);
+                });
+            });
+
+            // Search input (Unfinished) — мгновенное обновление с сохранением фокуса
+            document.querySelectorAll('.section-with-filters .search-input[data-target="unfinished"]').forEach(input => {
+                input.addEventListener('input', function() {
+                    const el = this;
+                    lastFocusedInput = {
+                        target: 'unfinished',
+                        selectionStart: el.selectionStart,
+                        selectionEnd: el.selectionEnd
+                    };
+                    searchUnfinished = el.value;
+                    renderProfile(steamId);
+                });
+            });
+
+            // Глобальные фильтры
+            document.querySelectorAll('.filters .filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const filter = this.dataset.filter;
+                    const value = this.dataset.value;
+                    if (filter === 'mode') modeFilter = value;
+                    else if (filter === 'type') typeFilter = value;
+                    else if (filter === 'course') courseFilter = value;
+                    // При клике на глобальный фильтр сбрасываем сохранённый фокус, чтобы не мешать
+                    lastFocusedInput = null;
+                    renderProfile(steamId);
+                });
+            });
+
+            // При клике вне полей ввода сбрасываем сохранённый фокус (чтобы не восстанавливать, если пользователь переключился на другой элемент)
+            document.addEventListener('click', function(e) {
+                const target = e.target;
+                if (!target.closest('.search-input')) {
+                    lastFocusedInput = null;
+                }
+            });
         }
 
         function escapeHtml(text) {
@@ -749,32 +1257,25 @@
             return div.innerHTML;
         }
 
-        // ===== Главная функция =====
+        // ===== INIT =====
         async function init() {
-            // Сначала показываем загрузку
             renderLoading();
 
-            // Загружаем данные
             const ok = await loadAllData();
             if (!ok) {
-                renderError('Не удалось загрузить данные. Проверьте подключение к интернету.');
+                renderError('Не удалось загрузить данные. Проверьте подключение к интернету или правильность URL.');
                 return;
             }
 
-            // Если нет рекордов – сообщаем
             if (allRecords.length === 0) {
                 renderNoData();
                 return;
             }
 
-            // Определяем, какой SteamID показывать
             let targetSteamId = getSteamIdFromUrl();
-
-            // Если в URL нет ID или он невалидный – берём самого частого игрока
             if (!targetSteamId) {
                 targetSteamId = findMostFrequentSteamId();
                 if (!targetSteamId) {
-                    // Если не найден (маловероятно, т.к. записи есть) – показываем ошибку
                     renderError('Не удалось определить игрока с наибольшим количеством рекордов.');
                     return;
                 }
@@ -784,10 +1285,8 @@
             renderProfile(targetSteamId);
         }
 
-        // ===== Запуск =====
         init();
     })();
 </script>
-
 </body>
 </html>
