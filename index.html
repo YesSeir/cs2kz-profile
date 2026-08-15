@@ -554,7 +554,6 @@
         const PLAYERS_URL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/data/players.json`;
         const MAPS_URL = 'https://raw.githubusercontent.com/YesSeir/cs2kz-maps/main/maps.json';
 
-        // Ключ для сохранения в localStorage
         const STORAGE_KEY = 'kzprofile_filters';
 
         let allRecords = [];
@@ -562,26 +561,21 @@
         let allMaps = [];
         let currentSteamId = null;
 
-        // Глобальные фильтры
         let modeFilter = 'CKZ';
         let typeFilter = 'Overall';
         let courseFilter = 'Main';
 
-        // Локальные фильтры для Personal Best
         let sortPB = 'created';
         let tierPB = 0;
         let searchPB = '';
 
-        // Локальные фильтры для Unfinished
         let tierUnfinished = 0;
         let searchUnfinished = '';
 
-        // Для восстановления фокуса
-        let lastFocusedInput = null; // { target: 'pb' | 'unfinished', selectionStart: number, selectionEnd: number }
+        let lastFocusedInput = null;
 
         const contentEl = document.getElementById('content');
 
-        // ===== СОХРАНЕНИЕ И ЗАГРУЗКА СОСТОЯНИЯ =====
         function saveState() {
             const state = {
                 modeFilter,
@@ -615,7 +609,6 @@
             } catch (e) {}
         }
 
-        // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
         function getSteamIdFromUrl() {
             const path = window.location.pathname;
             const parts = path.split('/').filter(p => p.length > 0);
@@ -757,6 +750,7 @@
             return total;
         }
 
+        // ===== ИСПРАВЛЕННАЯ ФУНКЦИЯ =====
         function getFilteredAndSortedPB(playerRecords) {
             let filtered = playerRecords.filter(r => r.mode === modeFilter);
             if (courseFilter === 'Main') {
@@ -792,16 +786,11 @@
                 );
                 if (groupCandidates.length === 0) continue;
                 const best = groupCandidates.reduce((a, b) => a.time < b.time ? a : b);
-                const maxDate = group.records.reduce((max, rec) => {
-                    const d = parseCreated(rec.created);
-                    return d > max ? d : max;
-                }, new Date(0));
                 const tier = getMapTier(best.mapname, best.mode, best.courseid, typeFilter === 'Pro' ? 'pro' : 'nub');
                 if (tier === 0) continue;
                 result.push({
                     bestRecord: best,
                     count: group.count,
-                    lastDate: maxDate,
                     tier: tier
                 });
             }
@@ -817,7 +806,12 @@
             if (sortPB === 'alphabet') {
                 filteredResult.sort((a, b) => a.bestRecord.mapname.localeCompare(b.bestRecord.mapname));
             } else {
-                filteredResult.sort((a, b) => b.lastDate - a.lastDate);
+                // === ИСПРАВЛЕНИЕ: сортировка по дате ЛУЧШЕГО рекорда, а не по lastDate ===
+                filteredResult.sort((a, b) => {
+                    const dateA = parseCreated(a.bestRecord.created);
+                    const dateB = parseCreated(b.bestRecord.created);
+                    return dateB - dateA; // сначала новые
+                });
             }
             return filteredResult;
         }
@@ -871,7 +865,6 @@
             return filtered;
         }
 
-        // ===== ЗАГРУЗКА ДАННЫХ =====
         async function fetchJson(url) {
             const resp = await fetch(url);
             if (!resp.ok) throw new Error(`HTTP ${resp.status} — ${resp.statusText}`);
@@ -895,7 +888,6 @@
             }
         }
 
-        // ===== RENDER STATES =====
         function renderLoading() {
             contentEl.innerHTML = `
                 <div class="loading-state">
@@ -937,7 +929,6 @@
             `;
         }
 
-        // ===== ВОССТАНОВЛЕНИЕ ФОКУСА ПОСЛЕ РЕНДЕРА =====
         function restoreFocus() {
             if (!lastFocusedInput) return;
             const target = lastFocusedInput.target;
@@ -950,7 +941,6 @@
             }
         }
 
-        // ===== MAIN RENDER =====
         function renderProfile(steamId) {
             const playerRecords = allRecords.filter(r => r.steamid === steamId);
             if (playerRecords.length === 0) {
@@ -997,7 +987,6 @@
 
             let html = '';
 
-            // --- Header ---
             html += `
                 <div class="profile-header">
                     <div class="profile-avatar">
@@ -1030,7 +1019,6 @@
                 </div>
             `;
 
-            // --- Stats ---
             html += `
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -1048,7 +1036,6 @@
                 </div>
             `;
 
-            // --- Глобальные фильтры (кнопки по центру) ---
             html += `
                 <div class="filters">
                     <div class="filter-group">
@@ -1067,13 +1054,10 @@
                 </div>
             `;
 
-            // --- Two columns ---
             html += `<div class="two-col">`;
 
-            // Левая колонка
             html += `<div class="left-col">`;
 
-            // --- Tier progress ---
             html += `
                 <div class="tier-section">
                     <h3>Tier progress</h3>
@@ -1089,7 +1073,7 @@
                         <div class="tier-bar-wrap">
                             <div class="tier-bar-fill" style="width: ${percent}%;"></div>
                         </div>
-                        <span class="tier-count"><span class="done">${done}</span>/${total}</span>
+                        <span class="tier-count"><span class="done">${done}</span>/ ${total}</span>
                     </div>
                 `;
             }
@@ -1097,7 +1081,6 @@
                 </div>
             `;
 
-            // --- Unfinished maps ---
             html += `
                 <div class="section-with-filters">
                     <div class="section-header">
@@ -1134,9 +1117,8 @@
                 </div>
             `;
 
-            html += `</div>`; // конец left-col
+            html += `</div>`; // left-col
 
-            // --- Правая колонка: Personal Best ---
             html += `
                 <div class="section-with-filters">
                     <div class="section-header">
@@ -1205,14 +1187,9 @@
 
             contentEl.innerHTML = html;
 
-            // --- Восстанавливаем фокус после рендера ---
             restoreFocus();
-
-            // --- Сохраняем состояние фильтров ---
             saveState();
 
-            // --- Обработчики для локальных фильтров ---
-            // Sort кнопки (PB)
             document.querySelectorAll('.section-with-filters .filter-btn[data-sort]').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const target = this.dataset.target;
@@ -1224,7 +1201,6 @@
                 });
             });
 
-            // Select Tier (PB и Unfinished)
             document.querySelectorAll('.section-with-filters .tier-select').forEach(select => {
                 select.addEventListener('change', function() {
                     const target = this.dataset.target;
@@ -1238,7 +1214,6 @@
                 });
             });
 
-            // Search input (PB) — мгновенное обновление с сохранением фокуса
             document.querySelectorAll('.section-with-filters .search-input[data-target="pb"]').forEach(input => {
                 input.addEventListener('input', function() {
                     const el = this;
@@ -1252,7 +1227,6 @@
                 });
             });
 
-            // Search input (Unfinished) — мгновенное обновление с сохранением фокуса
             document.querySelectorAll('.section-with-filters .search-input[data-target="unfinished"]').forEach(input => {
                 input.addEventListener('input', function() {
                     const el = this;
@@ -1266,7 +1240,6 @@
                 });
             });
 
-            // Глобальные фильтры
             document.querySelectorAll('.filters .filter-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const filter = this.dataset.filter;
@@ -1274,13 +1247,11 @@
                     if (filter === 'mode') modeFilter = value;
                     else if (filter === 'type') typeFilter = value;
                     else if (filter === 'course') courseFilter = value;
-                    // При клике на глобальный фильтр сбрасываем сохранённый фокус, чтобы не мешать
                     lastFocusedInput = null;
                     renderProfile(steamId);
                 });
             });
 
-            // При клике вне полей ввода сбрасываем сохранённый фокус (чтобы не восстанавливать, если пользователь переключился на другой элемент)
             document.addEventListener('click', function(e) {
                 const target = e.target;
                 if (!target.closest('.search-input')) {
@@ -1296,7 +1267,6 @@
             return div.innerHTML;
         }
 
-        // ===== INIT =====
         async function init() {
             renderLoading();
 
@@ -1311,7 +1281,6 @@
                 return;
             }
 
-            // Загружаем сохранённое состояние фильтров
             loadState();
 
             let targetSteamId = getSteamIdFromUrl();
