@@ -6,6 +6,18 @@
     "course": "Main",
     "courseid": 1,
     "mode": "CKZ",
+    "teleports": 4,
+    "runtime": "1:26.140",
+    "time": 86.140625,
+    "created": "19:02:03 15.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
+    "mapname": "kz_bayharborbhopper",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
     "teleports": 9,
     "runtime": "1:38.851",
     "time": 98.8515625,
