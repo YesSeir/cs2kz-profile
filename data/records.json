@@ -2,6 +2,18 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
+    "mapname": "kz_bayharborbhopper",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 9,
+    "runtime": "1:38.851",
+    "time": 98.8515625,
+    "created": "18:59:05 15.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
     "mapname": "kz_okaychamp",
     "course": "Main",
     "courseid": 1,
