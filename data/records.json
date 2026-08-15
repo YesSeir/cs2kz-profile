@@ -2,6 +2,18 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
+    "mapname": "kz_haste",
+    "course": "Bonus 2",
+    "courseid": 3,
+    "mode": "CKZ",
+    "teleports": 0,
+    "runtime": "20.835",
+    "time": 20.8359375,
+    "created": "19:11:53 15.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
     "mapname": "kz_vnl_mapping_comp_2026",
     "course": "kz_asteroid_beach",
     "courseid": 1,
