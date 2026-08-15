@@ -2,6 +2,18 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
+    "mapname": "kz_vnl_mapping_comp_2026",
+    "course": "kz_asteroid_beach",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 10,
+    "runtime": "1:50.101",
+    "time": 110.1015625,
+    "created": "19:09:08 15.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
     "mapname": "kz_bayharborbhopper",
     "course": "Main",
     "courseid": 1,
