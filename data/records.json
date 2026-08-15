@@ -6,6 +6,18 @@
     "course": "Main",
     "courseid": 1,
     "mode": "CKZ",
+    "teleports": 0,
+    "runtime": "1:46.039",
+    "time": 106.0390625,
+    "created": "19:21:48 15.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
+    "mapname": "kz_haste",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
     "teleports": 3,
     "runtime": "1:53.851",
     "time": 113.8515625,
