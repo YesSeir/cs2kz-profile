@@ -142,6 +142,7 @@
             letter-spacing: 0.5px;
             margin-top: 2px;
         }
+        /* ===== КНОПКИ ФИЛЬТРОВ ПО ЦЕНТРУ ===== */
         .filters {
             display: flex;
             flex-wrap: wrap;
@@ -152,6 +153,7 @@
             padding: 16px 28px;
             margin-bottom: 24px;
             align-items: center;
+            justify-content: center; /* центрирование */
         }
         .filters .filter-group {
             display: flex;
@@ -552,6 +554,9 @@
         const PLAYERS_URL = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/data/players.json`;
         const MAPS_URL = 'https://raw.githubusercontent.com/YesSeir/cs2kz-maps/main/maps.json';
 
+        // Ключ для сохранения в localStorage
+        const STORAGE_KEY = 'kzprofile_filters';
+
         let allRecords = [];
         let allPlayers = [];
         let allMaps = [];
@@ -560,7 +565,7 @@
         // Глобальные фильтры
         let modeFilter = 'CKZ';
         let typeFilter = 'Overall';
-        let courseFilter = 'ALL';
+        let courseFilter = 'Main';
 
         // Локальные фильтры для Personal Best
         let sortPB = 'created';
@@ -575,6 +580,40 @@
         let lastFocusedInput = null; // { target: 'pb' | 'unfinished', selectionStart: number, selectionEnd: number }
 
         const contentEl = document.getElementById('content');
+
+        // ===== СОХРАНЕНИЕ И ЗАГРУЗКА СОСТОЯНИЯ =====
+        function saveState() {
+            const state = {
+                modeFilter,
+                typeFilter,
+                courseFilter,
+                sortPB,
+                tierPB,
+                searchPB,
+                tierUnfinished,
+                searchUnfinished
+            };
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            } catch (e) {}
+        }
+
+        function loadState() {
+            try {
+                const data = localStorage.getItem(STORAGE_KEY);
+                if (data) {
+                    const state = JSON.parse(data);
+                    if (state.modeFilter !== undefined) modeFilter = state.modeFilter;
+                    if (state.typeFilter !== undefined) typeFilter = state.typeFilter;
+                    if (state.courseFilter !== undefined) courseFilter = state.courseFilter;
+                    if (state.sortPB !== undefined) sortPB = state.sortPB;
+                    if (state.tierPB !== undefined) tierPB = state.tierPB;
+                    if (state.searchPB !== undefined) searchPB = state.searchPB;
+                    if (state.tierUnfinished !== undefined) tierUnfinished = state.tierUnfinished;
+                    if (state.searchUnfinished !== undefined) searchUnfinished = state.searchUnfinished;
+                }
+            } catch (e) {}
+        }
 
         // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
         function getSteamIdFromUrl() {
@@ -1009,21 +1048,18 @@
                 </div>
             `;
 
-            // --- Глобальные фильтры ---
+            // --- Глобальные фильтры (кнопки по центру) ---
             html += `
                 <div class="filters">
                     <div class="filter-group">
-                        <span class="label">Mode</span>
                         <button class="filter-btn ${modeFilter === 'CKZ' ? 'active' : ''}" data-filter="mode" data-value="CKZ">CKZ</button>
                         <button class="filter-btn ${modeFilter === 'VNL' ? 'active' : ''}" data-filter="mode" data-value="VNL">VNL</button>
                     </div>
                     <div class="filter-group">
-                        <span class="label">Type</span>
                         <button class="filter-btn ${typeFilter === 'Overall' ? 'active' : ''}" data-filter="type" data-value="Overall">Overall</button>
                         <button class="filter-btn ${typeFilter === 'Pro' ? 'active' : ''}" data-filter="type" data-value="Pro">Pro</button>
                     </div>
                     <div class="filter-group">
-                        <span class="label">Course</span>
                         <button class="filter-btn ${courseFilter === 'ALL' ? 'active' : ''}" data-filter="course" data-value="ALL">ALL</button>
                         <button class="filter-btn ${courseFilter === 'Main' ? 'active' : ''}" data-filter="course" data-value="Main">Main</button>
                         <button class="filter-btn ${courseFilter === 'Bonus' ? 'active' : ''}" data-filter="course" data-value="Bonus">Bonus</button>
@@ -1080,7 +1116,7 @@
                         ${unfinishedItems.length > 0 
                             ? unfinishedItems.map(item => {
                                 const mapImg = item.image || `https://via.placeholder.com/80/2a2a42/aaa?text=${item.mapname.substring(0,3)}`;
-                                const tierLabel = tierLabels[item.tier] || `Тир ${item.tier}`;
+                                const tierLabel = tierLabels[item.tier] || `Tier ${item.tier}`;
                                 const courseName = item.coursename || 'Main';
                                 return `
                                     <div class="uncompleted-item">
@@ -1092,7 +1128,7 @@
                                     </div>
                                 `;
                               }).join('')
-                            : '<div style="color:rgb(175,175,175);">Все карты пройдены! 🎉</div>'
+                            : '<div style="color:rgb(175,175,175);">All maps done! 🎉</div>'
                         }
                     </div>
                 </div>
@@ -1120,7 +1156,7 @@
                     <div class="recent-list">
             `;
             if (pbItems.length === 0) {
-                html += `<div style="color:rgb(175,175,175);">Нет записей, соответствующих фильтрам</div>`;
+                html += `<div style="color:rgb(175,175,175);">No data find</div>`;
             } else {
                 pbItems.forEach(item => {
                     const r = item.bestRecord;
@@ -1171,6 +1207,9 @@
 
             // --- Восстанавливаем фокус после рендера ---
             restoreFocus();
+
+            // --- Сохраняем состояние фильтров ---
+            saveState();
 
             // --- Обработчики для локальных фильтров ---
             // Sort кнопки (PB)
@@ -1271,6 +1310,9 @@
                 renderNoData();
                 return;
             }
+
+            // Загружаем сохранённое состояние фильтров
+            loadState();
 
             let targetSteamId = getSteamIdFromUrl();
             if (!targetSteamId) {
