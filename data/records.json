@@ -2,6 +2,18 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
+    "mapname": "kz_spacemario_h",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 100,
+    "runtime": "10:16.351",
+    "time": 616.3515625,
+    "created": "19:43:01 15.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
     "mapname": "kz_haste",
     "course": "Main",
     "courseid": 1,
