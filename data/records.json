@@ -6,6 +6,18 @@
     "course": "valley",
     "courseid": 1,
     "mode": "CKZ",
+    "teleports": 8,
+    "runtime": "3:08.679",
+    "time": 188.6796875,
+    "created": "11:12:16 16.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
+    "mapname": "kz_consequence",
+    "course": "valley",
+    "courseid": 1,
+    "mode": "CKZ",
     "teleports": 12,
     "runtime": "3:20.421",
     "time": 200.421875,
