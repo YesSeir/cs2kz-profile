@@ -2,6 +2,42 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
+    "mapname": "kz_rlk",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 260,
+    "runtime": "12:05.125",
+    "time": 725.125,
+    "created": "22:43:59 16.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
+    "mapname": "kz_sxb2_trashspace",
+    "course": "main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 129,
+    "runtime": "11:06.757",
+    "time": 666.7578125,
+    "created": "20:16:42 16.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
+    "mapname": "kz_kiwi_cod",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 351,
+    "runtime": "10:49.429",
+    "time": 649.4296875,
+    "created": "20:02:14 16.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
     "mapname": "kz_sxb2_misato",
     "course": "Main",
     "courseid": 1,
