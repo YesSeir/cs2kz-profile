@@ -127,7 +127,6 @@
             letter-spacing: 0.5px;
             margin-top: 2px;
         }
-        /* ===== КНОПКИ ФИЛЬТРОВ ПО ЦЕНТРУ ===== */
         .filters {
             display: flex;
             flex-wrap: wrap;
@@ -138,7 +137,7 @@
             padding: 16px 28px;
             margin-bottom: 24px;
             align-items: center;
-            justify-content: center; /* центрирование */
+            justify-content: center;
         }
         .filters .filter-group {
             display: flex;
@@ -287,31 +286,93 @@
             border-color: rgb(255, 255, 255);
             box-shadow: 0 2px 8px rgba(255,255,255,0.15);
         }
-        .section-with-filters .section-header .filters-row .tier-select {
-            padding: 4px 10px;
-            border-radius: 16px;
+        /* ===== КАСТОМНЫЙ SELECT (МНОЖЕСТВЕННЫЙ) ===== */
+        .custom-select {
+            position: relative;
+            display: inline-block;
+            width: 140px;
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+            user-select: none;
+        }
+        .custom-select-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 4px 12px;
             background: rgb(30, 30, 30);
             border: 1px solid rgb(43, 43, 43);
-            color: rgb(255, 255, 255);
-            font-size: 12px;
-            outline: none;
-            cursor: pointer;
-            font-family: 'Inter', sans-serif;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23afafaf'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 8px center;
-            padding-right: 26px;
-            min-width: 60px;
+            border-radius: 16px;
+            transition: border-color 0.2s;
+            gap: 6px;
+            height: 30px;
+            min-height: 30px;
         }
-        .section-with-filters .section-header .filters-row .tier-select:focus {
+        .custom-select-trigger:hover {
             border-color: rgb(100, 100, 140);
         }
-        .section-with-filters .section-header .filters-row .tier-select option {
+        .custom-select-value {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgb(220, 220, 220);
+            max-width: 80px;
+        }
+        .custom-select-arrow {
+            font-size: 10px;
+            color: rgb(175, 175, 175);
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .custom-select.open .custom-select-arrow {
+            transform: rotate(180deg);
+        }
+        .custom-select-options {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 0;
+            right: 0;
             background: rgb(30, 30, 30);
+            border: 1px solid rgb(43, 43, 43);
+            border-radius: 12px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+        .custom-select.open .custom-select-options {
+            display: block;
+        }
+        .custom-select-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: rgb(200, 200, 200);
+            transition: background 0.15s, color 0.15s;
+            cursor: pointer;
+        }
+        .custom-select-option:hover {
+            background: rgb(50, 50, 50);
             color: rgb(255, 255, 255);
         }
+        .custom-select-option .checkmark {
+            display: inline-block;
+            width: 16px;
+            text-align: right;
+            visibility: hidden;
+            color: #fff;
+            font-weight: 700;
+        }
+        .custom-select-option.selected .checkmark {
+            visibility: visible;
+        }
+        /* ===== КОНЕЦ КАСТОМНОГО SELECT ===== */
         .section-with-filters .section-header .filters-row .search-input {
             padding: 4px 12px;
             border-radius: 16px;
@@ -321,6 +382,7 @@
             font-size: 12px;
             outline: none;
             width: 140px;
+            height: 30px;
             transition: border-color 0.2s;
             font-family: 'Inter', sans-serif;
         }
@@ -329,6 +391,28 @@
         }
         .section-with-filters .section-header .filters-row .search-input::placeholder {
             color: rgb(175, 175, 175);
+        }
+        /* Кнопка случайной карты — прозрачная, только иконка */
+        .random-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 30px;
+            padding: 0 4px;
+            background: transparent;
+            border: none;
+            color: rgb(175, 175, 175);
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-family: 'Inter', sans-serif;
+            user-select: none;
+        }
+        .random-btn:hover {
+            color: rgb(255, 255, 255);
+        }
+        .random-btn:active {
+            transform: scale(0.9);
         }
         .uncompleted-list {
             display: flex;
@@ -509,6 +593,7 @@
             .recent-item .map-thumb { width: 60px; min-height: 60px; }
             .recent-item .map-name { font-size: 16px; }
             .uncompleted-item .map-thumb { width: 60px; min-height: 60px; }
+            .custom-select { min-width: 100px; }
         }
         @media (max-width: 480px) {
             .stats-grid { grid-template-columns: 1fr; }
@@ -518,6 +603,7 @@
             .recent-item .map-thumb { width: 50px; min-height: 50px; }
             .uncompleted-item .map-thumb { width: 50px; min-height: 50px; }
             .section-with-filters .section-header .filters-row .search-input { width: 100%; }
+            .custom-select { min-width: 90px; }
         }
     </style>
 </head>
@@ -551,13 +637,14 @@
         let courseFilter = 'Main';
 
         let sortPB = 'created';
-        let tierPB = 0;
+        let tierPB = [];
         let searchPB = '';
 
-        let tierUnfinished = 0;
+        let tierUnfinished = [];
         let searchUnfinished = '';
 
         let lastFocusedInput = null;
+        let openSelectTarget = null;
 
         const contentEl = document.getElementById('content');
 
@@ -567,9 +654,9 @@
                 typeFilter,
                 courseFilter,
                 sortPB,
-                tierPB,
+                tierPB: JSON.stringify(tierPB),
                 searchPB,
-                tierUnfinished,
+                tierUnfinished: JSON.stringify(tierUnfinished),
                 searchUnfinished
             };
             try {
@@ -586,9 +673,19 @@
                     if (state.typeFilter !== undefined) typeFilter = state.typeFilter;
                     if (state.courseFilter !== undefined) courseFilter = state.courseFilter;
                     if (state.sortPB !== undefined) sortPB = state.sortPB;
-                    if (state.tierPB !== undefined) tierPB = state.tierPB;
+                    if (state.tierPB !== undefined) {
+                        try {
+                            const parsed = JSON.parse(state.tierPB);
+                            tierPB = Array.isArray(parsed) ? parsed : [];
+                        } catch(e) { tierPB = []; }
+                    }
                     if (state.searchPB !== undefined) searchPB = state.searchPB;
-                    if (state.tierUnfinished !== undefined) tierUnfinished = state.tierUnfinished;
+                    if (state.tierUnfinished !== undefined) {
+                        try {
+                            const parsed = JSON.parse(state.tierUnfinished);
+                            tierUnfinished = Array.isArray(parsed) ? parsed : [];
+                        } catch(e) { tierUnfinished = []; }
+                    }
                     if (state.searchUnfinished !== undefined) searchUnfinished = state.searchUnfinished;
                 }
             } catch (e) {}
@@ -736,7 +833,6 @@
             return total;
         }
 
-        // ===== ИСПРАВЛЕННАЯ ФУНКЦИЯ =====
         function getFilteredAndSortedPB(playerRecords) {
             let filtered = playerRecords.filter(r => r.mode === modeFilter);
             if (courseFilter === 'Main') {
@@ -782,8 +878,8 @@
             }
 
             let filteredResult = result;
-            if (tierPB > 0) {
-                filteredResult = filteredResult.filter(item => item.tier === tierPB);
+            if (tierPB.length > 0) {
+                filteredResult = filteredResult.filter(item => tierPB.includes(item.tier));
             }
             if (searchPB.trim() !== '') {
                 const query = searchPB.trim().toLowerCase();
@@ -792,11 +888,10 @@
             if (sortPB === 'alphabet') {
                 filteredResult.sort((a, b) => a.bestRecord.mapname.localeCompare(b.bestRecord.mapname));
             } else {
-                // === ИСПРАВЛЕНИЕ: сортировка по дате ЛУЧШЕГО рекорда, а не по lastDate ===
                 filteredResult.sort((a, b) => {
                     const dateA = parseCreated(a.bestRecord.created);
                     const dateB = parseCreated(b.bestRecord.created);
-                    return dateB - dateA; // сначала новые
+                    return dateB - dateA;
                 });
             }
             return filteredResult;
@@ -840,8 +935,8 @@
                 .filter(item => item.tier > 0);
 
             let filtered = unfinished;
-            if (tierUnfinished > 0) {
-                filtered = filtered.filter(item => item.tier === tierUnfinished);
+            if (tierUnfinished.length > 0) {
+                filtered = filtered.filter(item => tierUnfinished.includes(item.tier));
             }
             if (searchUnfinished.trim() !== '') {
                 const query = searchUnfinished.trim().toLowerCase();
@@ -926,6 +1021,93 @@
                 }
             }
         }
+
+        function generateTierSelect(target, selectedValues) {
+            const options = [
+                { value: 1, label: '1 - Very Easy' },
+                { value: 2, label: '2 - Easy' },
+                { value: 3, label: '3 - Medium' },
+                { value: 4, label: '4 - Advanced' },
+                { value: 5, label: '5 - Hard' },
+                { value: 6, label: '6 - Very Hard' },
+                { value: 7, label: '7 - Extreme' },
+                { value: 8, label: '8 - Death' },
+                { value: 9, label: '9 - Unfeasible' },
+                { value: 10, label: '10 - Impossible' }
+            ];
+
+            let triggerText = 'All';
+            if (selectedValues.length > 0) {
+                const sorted = selectedValues.slice().sort((a,b) => a - b);
+                triggerText = sorted.join(', ');
+                if (triggerText.length > 12) triggerText = sorted.slice(0,2).join(', ') + '…';
+            }
+
+            let html = `<div class="custom-select" data-target="${target}">`;
+            html += `<div class="custom-select-trigger">`;
+            html += `<span class="custom-select-value">${triggerText}</span>`;
+            html += `<span class="custom-select-arrow">▼</span>`;
+            html += `</div>`;
+            html += `<div class="custom-select-options">`;
+            options.forEach(opt => {
+                const selected = selectedValues.includes(opt.value) ? ' selected' : '';
+                html += `<div class="custom-select-option${selected}" data-value="${opt.value}">`;
+                html += `<span>${opt.label}</span>`;
+                html += `<span class="checkmark">✓</span>`;
+                html += `</div>`;
+            });
+            html += `</div></div>`;
+            return html;
+        }
+
+        function initCustomSelects() {
+            const selects = document.querySelectorAll('.custom-select');
+            selects.forEach(select => {
+                const trigger = select.querySelector('.custom-select-trigger');
+                const options = select.querySelectorAll('.custom-select-option');
+
+                trigger.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    document.querySelectorAll('.custom-select.open').forEach(s => {
+                        if (s !== select) s.classList.remove('open');
+                    });
+                    select.classList.toggle('open');
+                    openSelectTarget = select.classList.contains('open') ? select.dataset.target : null;
+                });
+
+                options.forEach(opt => {
+                    opt.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const value = parseInt(this.dataset.value, 10);
+                        const target = select.dataset.target;
+
+                        let arr;
+                        if (target === 'pb') {
+                            arr = tierPB;
+                        } else if (target === 'unfinished') {
+                            arr = tierUnfinished;
+                        } else return;
+
+                        const idx = arr.indexOf(value);
+                        if (idx > -1) {
+                            arr.splice(idx, 1);
+                        } else {
+                            arr.push(value);
+                        }
+
+                        openSelectTarget = target;
+                        renderProfile(currentSteamId);
+                    });
+                });
+            });
+        }
+
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.custom-select')) {
+                document.querySelectorAll('.custom-select.open').forEach(s => s.classList.remove('open'));
+                openSelectTarget = null;
+            }
+        });
 
         function renderProfile(steamId) {
             const playerRecords = allRecords.filter(r => r.steamid === steamId);
@@ -1078,12 +1260,8 @@
                     <div class="section-header">
                         <h3>Unfinished</h3>
                         <div class="filters-row">
-                            <select class="tier-select" data-target="unfinished">
-                                <option value="0" ${tierUnfinished === 0 ? 'selected' : ''}>All</option>
-                                ${[1,2,3,4,5,6,7,8,9,10].map(t => `
-                                    <option value="${t}" ${tierUnfinished === t ? 'selected' : ''}>${t}</option>
-                                `).join('')}
-                            </select>
+                            <button class="random-btn" title="Random map">🎲</button>
+                            ${generateTierSelect('unfinished', tierUnfinished)}
                             <input type="text" class="search-input" data-target="unfinished" value="${escapeHtml(searchUnfinished)}" placeholder="Search map..." />
                         </div>
                     </div>
@@ -1109,7 +1287,7 @@
                 </div>
             `;
 
-            html += `</div>`; // left-col
+            html += `</div>`;
 
             html += `
                 <div class="section-with-filters">
@@ -1118,12 +1296,7 @@
                         <div class="filters-row">
                             <button class="filter-btn ${sortPB === 'alphabet' ? 'active' : ''}" data-target="pb" data-sort="alphabet">A-Z</button>
                             <button class="filter-btn ${sortPB === 'created' ? 'active' : ''}" data-target="pb" data-sort="created">Date</button>
-                            <select class="tier-select" data-target="pb">
-                                <option value="0" ${tierPB === 0 ? 'selected' : ''}>All</option>
-                                ${[1,2,3,4,5,6,7,8,9,10].map(t => `
-                                    <option value="${t}" ${tierPB === t ? 'selected' : ''}>${t}</option>
-                                `).join('')}
-                            </select>
+                            ${generateTierSelect('pb', tierPB)}
                             <input type="text" class="search-input" data-target="pb" value="${escapeHtml(searchPB)}" placeholder="Search map..." />
                         </div>
                     </div>
@@ -1175,12 +1348,41 @@
                 </div>
             `;
 
-            html += `</div>`; // end two-col
+            html += `</div>`;
 
             contentEl.innerHTML = html;
 
             restoreFocus();
             saveState();
+
+            initCustomSelects();
+
+            if (openSelectTarget) {
+                const select = document.querySelector(`.custom-select[data-target="${openSelectTarget}"]`);
+                if (select) {
+                    select.classList.add('open');
+                }
+            }
+
+            // Обработчик кнопки случайной карты
+            const randomBtn = document.querySelector('.random-btn');
+            if (randomBtn) {
+                randomBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const tempSearch = searchUnfinished;
+                    const originalSearch = searchUnfinished;
+                    searchUnfinished = '';
+                    const fullUnfinished = getFilteredAndSortedUnfinished(playerRecords);
+                    searchUnfinished = originalSearch;
+
+                    if (fullUnfinished.length === 0) return;
+
+                    const randomIndex = Math.floor(Math.random() * fullUnfinished.length);
+                    const randomMap = fullUnfinished[randomIndex];
+                    searchUnfinished = randomMap.mapname;
+                    renderProfile(steamId);
+                });
+            }
 
             document.querySelectorAll('.section-with-filters .filter-btn[data-sort]').forEach(btn => {
                 btn.addEventListener('click', function() {
@@ -1190,19 +1392,6 @@
                         sortPB = sort;
                         renderProfile(steamId);
                     }
-                });
-            });
-
-            document.querySelectorAll('.section-with-filters .tier-select').forEach(select => {
-                select.addEventListener('change', function() {
-                    const target = this.dataset.target;
-                    const tier = parseInt(this.value, 10);
-                    if (target === 'pb') {
-                        tierPB = tier;
-                    } else if (target === 'unfinished') {
-                        tierUnfinished = tier;
-                    }
-                    renderProfile(steamId);
                 });
             });
 
