@@ -2,6 +2,18 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
+    "mapname": "kz_consequence",
+    "course": "valley",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 12,
+    "runtime": "3:20.421",
+    "time": 200.421875,
+    "created": "11:07:57 16.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
     "mapname": "kz_spacemario_h",
     "course": "Main",
     "courseid": 1,
