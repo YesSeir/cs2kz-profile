@@ -2,6 +2,42 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
+    "mapname": "kz_zhongbitu",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 198,
+    "runtime": "10:45.734",
+    "time": 645.734375,
+    "created": "11:19:08 18.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
+    "mapname": "kz_slidebober",
+    "course": "main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 49,
+    "runtime": "5:52.476",
+    "time": 352.4765625,
+    "created": "11:05:45 18.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
+    "mapname": "kz_spy",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 148,
+    "runtime": "7:25.984",
+    "time": 445.984375,
+    "created": "10:56:57 18.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
     "mapname": "kz_11342",
     "course": "Main",
     "courseid": 1,
