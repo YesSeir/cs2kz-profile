@@ -2,6 +2,18 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
+    "mapname": "kz_monstrosity",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 381,
+    "runtime": "20:00.328",
+    "time": 1200.328125,
+    "created": "08:35:36 25.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
     "mapname": "kz_rarkovosis",
     "course": "Bonus 7",
     "courseid": 8,
