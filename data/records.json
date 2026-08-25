@@ -2,6 +2,18 @@
   {
     "playername": "Memorial",
     "steamid": "76561199389731907",
+    "mapname": "kz_notmute",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
+    "teleports": 316,
+    "runtime": "18:24.398",
+    "time": 1104.3984375,
+    "created": "07:39:10 25.08.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
     "mapname": "kz_drunkards",
     "course": "Main",
     "courseid": 1,
