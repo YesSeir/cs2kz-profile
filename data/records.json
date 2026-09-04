@@ -6,6 +6,18 @@
     "course": "Main",
     "courseid": 1,
     "mode": "CKZ",
+    "teleports": 159,
+    "runtime": "13:58.117",
+    "time": 838.1171875,
+    "created": "10:16:41 04.09.2026"
+  },
+  {
+    "playername": "Memorial",
+    "steamid": "76561199389731907",
+    "mapname": "kz_thrombosis",
+    "course": "Main",
+    "courseid": 1,
+    "mode": "CKZ",
     "teleports": 165,
     "runtime": "14:13.937",
     "time": 853.9375,
